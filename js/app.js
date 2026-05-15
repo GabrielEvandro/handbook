@@ -12,13 +12,28 @@ const CONTENT = {
         <div class="tip-box"><strong>💡 Intuição</strong> Antes de qualquer fórmula, pergunte: "O que quero descobrir com esses dados?"</div>`
       },
       {
-        title: 'Média, Mediana e Moda',
-        body: `<p><strong>Média</strong> — soma todos os valores e divide pela quantidade. Sensível a valores extremos (outliers).</p>
-        <p><strong>Mediana</strong> — valor central quando os dados estão ordenados. Robusta a outliers.</p>
-        <p><strong>Moda</strong> — valor que mais se repete. Útil em dados categóricos.</p>
-        <pre class="code-block">dados = [10, 12, 14, 100]
-média = 34    # puxada pelo 100
-mediana = 13  # representa melhor o "centro"</pre>`
+        title: 'Média Aritmética',
+        body: `<p>A <strong>média</strong> responde: "se dividirmos o total igualmente, quanto cada um ficaria?" Você soma todos os valores e divide pela quantidade.</p>
+        <p>Imagine o salário de 4 colegas: R$ 10, R$ 12, R$ 14 e R$ 18 mil. A média é R$ 13,5 mil — o "centro de gravidade" do grupo. Mas se um CEO ganha R$ 100 mil no mesmo cálculo, a média dispara para R$ 34 mil, mesmo que a maioria ganhe bem menos.</p>
+        <p>Por isso a média é <strong>sensível a outliers</strong> (valores muito distantes do resto).</p>
+        <div class="stat-demo" data-demo="media"></div>
+        <div class="tip-box"><strong>Quando usar</strong> Dados simétricos, sem extremos absurdos — ex.: altura de uma turma, temperatura média da semana.</div>`
+      },
+      {
+        title: 'Mediana',
+        body: `<p>A <strong>mediana</strong> é o valor que fica no meio depois de ordenar os dados. Metade fica abaixo, metade acima — é o "centro" que não se importa com quanto o maior valor é exagerado.</p>
+        <p>No exemplo [10, 12, 14, 100]: ordenando, o centro está entre 12 e 14 → mediana = <strong>13</strong>. O 100 quase não mexeu nela. Já a média seria 34.</p>
+        <p>Com quantidade <strong>ímpar</strong>, pegamos o valor do meio. Com quantidade <strong>par</strong>, fazemos a média dos dois centrais.</p>
+        <div class="stat-demo" data-demo="mediana"></div>
+        <div class="tip-box"><strong>Quando usar</strong> Salários, preços de imóveis, avaliações — distribuições com outliers ou assimetria.</div>`
+      },
+      {
+        title: 'Moda',
+        body: `<p>A <strong>moda</strong> é o valor que mais aparece no conjunto — o "campeão de frequência". Não exige conta de soma: só contar repetições.</p>
+        <p>Em uma prova, se as notas 7, 7, 7, 8, 9 aparecem, a moda é <strong>7</strong>. Em uma pesquisa de cor favorita, a moda é a cor mais votada (dado categórico).</p>
+        <p>Pode haver <strong>mais de uma moda</strong> (bimodal) ou <strong>nenhuma</strong>, se todos os valores repetirem igualmente.</p>
+        <div class="stat-demo" data-demo="moda"></div>
+        <div class="tip-box"><strong>Quando usar</strong> Moda de vendas, tamanho mais pedido, categoria mais comum — especialmente em dados nominais ou discretos.</div>`
       },
       {
         title: 'Variabilidade: Desvio Padrão',
@@ -347,9 +362,12 @@ function renderAccordion(containerId, topics) {
       if (!isOpen) {
         item.classList.add('open');
         btn.setAttribute('aria-expanded', 'true');
+        initStatsDemos(item);
       }
     });
   });
+
+  initStatsDemos(container);
 }
 
 function refreshStatsTopics() {
