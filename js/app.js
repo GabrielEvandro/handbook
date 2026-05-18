@@ -37,41 +37,35 @@ const CONTENT = {
       },
       {
         title: 'Variabilidade: Desvio Padrão',
-        body: `<p>O <strong>desvio padrão</strong> mede o quanto os dados se espalham em torno da média. Quanto maior, mais dispersos estão os pontos.</p>
-        <p>Regra prática: em distribuições normais, ~68% dos dados ficam a 1 desvio da média, ~95% a 2 desvios.</p>`
+        body: `<p>EM CONSTRUÇÃO 🚧</p>`
       }
     ],
     intermediario: [
       {
         title: 'Distribuição Normal',
-        body: `<p>A curva em sino (Gauss) aparece em inúmeros fenômenos naturais. Caracterizada por média (μ) e desvio padrão (σ).</p>
-        <p>Central para testes de hipótese e intervalos de confiança.</p>`
+        body: `<p>EM CONSTRUÇÃO 🚧</p>`
       },
       {
         title: 'Correlação vs Causalidade',
-        body: `<p><strong>Correlação</strong> mede associação linear entre duas variáveis (−1 a +1). <strong>Não implica causa!</strong></p>
-        <p>Exemplo clássico: vendas de sorvete e afogamentos correlacionam — ambos sobem no verão (variável oculta).</p>`
+        body: `<p>EM CONSTRUÇÃO 🚧</p>`
       },
       {
         title: 'Teste t e p-valor',
-        body: `<p>O <strong>p-valor</strong> é a probabilidade de observar um resultado tão extremo quanto o seu, assumindo que a hipótese nula é verdadeira.</p>
-        <p>p &lt; 0,05 é convenção comum, mas contexto e tamanho do efeito importam tanto quanto o limiar.</p>`
+        body: `<p>EM CONSTRUÇÃO 🚧</p>`
       }
     ],
     avancado: [
       {
         title: 'Regressão Linear Múltipla',
-        body: `<p>Modela uma variável resposta como combinação linear de vários preditores. Coeficientes indicam mudança esperada na resposta por unidade de cada preditor.</p>
-        <p>Atenção a multicolinearidade, heterocedasticidade e resíduos não normais.</p>`
+        body: `<p>EM CONSTRUÇÃO 🚧</p>`
       },
       {
         title: 'ANOVA',
-        body: `<p><strong>Analysis of Variance</strong> compara médias entre 3+ grupos. Decompõe variância total em entre-grupos e dentro-grupos.</p>`
+        body: `<p>EM CONSTRUÇÃO 🚧</p>`
       },
       {
         title: 'Bayesiana — Introdução',
-        body: `<p>Atualiza crenças prévias (prior) com evidência dos dados (likelihood) para obter distribuição posterior.</p>
-        <p>P(<strong>θ</strong>|dados) ∝ P(dados|<strong>θ</strong>) · P(<strong>θ</strong>)</p>`
+        body: `<p>EM CONSTRUÇÃO 🚧</p>`
       }
     ]
   },
@@ -83,74 +77,43 @@ const CONTENT = {
       },
       {
         title: 'Variáveis e Tipos',
-        body: `<pre class="code-block">nome = "Gabriel Prado"      # str
-idade = 28             # int
-salario = 8500.50      # float
-ativo = True           # bool
-skills = ["Python", "SQL"]  # list</pre>
-        <p>Use <code>type()</code> para inspecionar e nomes descritivos em snake_case.</p>`
+        body: `<p>EM CONSTRUÇÃO 🚧</p>`
       },
       {
         title: 'Estruturas de Controle',
-        body: `<pre class="code-block">for i in range(5):
-    print(i)
-
-if score >= 0.7:
-    print("Aprovado")
-else:
-    print("Revisar")</pre>`
+        body: `<p>EM CONSTRUÇÃO 🚧</p>`
       },
       {
         title: 'Funções',
-        body: `<pre class="code-block">def media(lista):
-    return sum(lista) / len(lista)
-
-resultado = media([1, 2, 3, 4])  # 2.5</pre>
-        <p>Funções encapsulam lógica reutilizável. Use type hints em projetos maiores.</p>`
+        body: `<p>EM CONSTRUÇÃO 🚧</p>`
       }
     ],
     intermediario: [
       {
         title: 'List Comprehensions',
-        body: `<pre class="code-block">quadrados = [x**2 for x in range(10)]
-pares = [x for x in range(20) if x % 2 == 0]</pre>
-        <p>Sintaxe concisa e pythônica para criar listas a partir de iteráveis.</p>`
+        body: `<p>EM CONSTRUÇÃO 🚧</p>`
       },
       {
         title: 'NumPy — Arrays Vetorizados',
-        body: `<pre class="code-block">import numpy as np
-a = np.array([1, 2, 3])
-b = a * 2          # [2, 4, 6] — sem loop!
-media = a.mean()</pre>
-        <p>Operações vetorizadas são muito mais rápidas que loops Python puros.</p>`
+        body: `<p>EM CONSTRUÇÃO 🚧</p>`
       },
       {
         title: 'Pandas — DataFrames',
-        body: `<pre class="code-block">import pandas as pd
-df = pd.read_csv("dados.csv")
-df.head()
-df.groupby("categoria")["vendas"].mean()</pre>`
+        body: `<p>EM CONSTRUÇÃO 🚧</p>`
       }
     ],
     avancado: [
       {
         title: 'OOP para Pipelines',
-        body: `<p>Classes ajudam a organizar transformadores encadeáveis compatíveis com scikit-learn (<code>fit</code>, <code>transform</code>).</p>`
+        body: `<p>EM CONSTRUÇÃO 🚧</p>`
       },
       {
         title: 'Decoradores e Context Managers',
-        body: `<pre class="code-block">from contextlib import contextmanager
-
-@contextmanager
-def timer():
-  import time
-  start = time.time()
-  yield
-  print(f"{time.time()-start:.2f}s")</pre>`
+        body: `<p>EM CONSTRUÇÃO 🚧</p>`
       },
       {
         title: 'Performance: Numba e Polars',
-        body: `<p>Para datasets grandes, considere <strong>Polars</strong> (Rust) ou <strong>Numba</strong> para JIT de funções numéricas críticas.</p>`
+        body: `<p>EM CONSTRUÇÃO 🚧</p>`
       }
     ]
   },
@@ -164,37 +127,35 @@ def timer():
         },
         {
           title: 'Overfitting vs Underfitting',
-          body: `<p><strong>Overfitting</strong> — modelo decora o treino e falha em dados novos.</p>
-        <p><strong>Underfitting</strong> — modelo simples demais, não captura o padrão.</p>
-        <p>Soluções: validação cruzada, regularização, mais dados, early stopping.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         },
         {
           title: 'Regressão Logística',
-          body: `<p>Classificação binária que estima probabilidade via função sigmoide. Saída entre 0 e 1 interpretável como chance da classe positiva.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         }
       ],
       intermediario: [
         {
           title: 'Random Forest',
-          body: `<p>Ensemble de árvores de decisão com bagging e seleção aleatória de features. Robusto, pouco tuning, bom baseline.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         },
         {
           title: 'Métricas: Precision, Recall, F1',
-          body: `<p>Em classes desbalanceadas, acurácia engana. <strong>F1</strong> equilibra precision (quão confiáveis são os positivos previstos) e recall (quantos positivos reais foram encontrados).</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         },
         {
           title: 'Validação Cruzada k-Fold',
-          body: `<p>Divide dados em k partes; treina em k−1 e valida na restante, rotacionando. Estima performance com menos viés que um único split.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         }
       ],
       avancado: [
         {
           title: 'Gradient Boosting (XGBoost, LightGBM)',
-          body: `<p>Constrói árvores sequencialmente, cada uma corrigindo erros da anterior. Estado da arte em dados tabulares estruturados.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         },
         {
           title: 'SHAP — Interpretabilidade',
-          body: `<p>Valores SHAP atribuem contribuição de cada feature para cada predição, baseados em teoria dos jogos.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         }
       ]
     },
@@ -202,41 +163,39 @@ def timer():
       basico: [
         {
           title: 'Redes Neurais — Conceito',
-          body: `<p>Camadas de neurônios artificiais aplicam transformações não lineares. A rede aprende pesos via <strong>backpropagation</strong> e gradiente descendente.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         },
         {
           title: 'Funções de Ativação',
-          body: `<p><strong>ReLU</strong> — max(0, x), padrão em camadas ocultas.</p>
-        <p><strong>Sigmoid/Softmax</strong> — saídas probabilísticas para classificação.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         },
         {
           title: 'Loss Functions',
-          body: `<p>Cross-entropy para classificação, MSE para regressão. A loss guia o quanto o modelo precisa ajustar os pesos.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         }
       ],
       intermediario: [
         {
           title: 'CNNs para Imagens',
-          body: `<p>Convoluções detectam padrões locais (bordas, texturas) com compartilhamento de pesos. Pooling reduz dimensionalidade espacial.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         },
         {
           title: 'Dropout e Batch Normalization',
-          body: `<p><strong>Dropout</strong> desliga neurônios aleatoriamente no treino para regularizar.</p>
-        <p><strong>BatchNorm</strong> normaliza ativações por mini-batch, acelera convergência.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         },
         {
           title: 'Transfer Learning',
-          body: `<p>Reutilize modelos pré-treinados (ResNet, EfficientNet) e adapte só as últimas camadas — menos dados e tempo necessários.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         }
       ],
       avancado: [
         {
           title: 'Transformers — Arquitetura',
-          body: `<p><strong>Self-attention</strong> permite que cada token "olhe" para todos os outros em paralelo. Base de BERT, GPT e modelos multimodais modernos.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         },
         {
           title: 'Fine-tuning e LoRA',
-          body: `<p>LoRA adiciona matrizes de baixo rank treináveis, reduzindo custo de adaptar LLMs grandes a domínios específicos.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         }
       ]
     },
@@ -244,44 +203,43 @@ def timer():
       basico: [
         {
           title: 'O que é IA Generativa?',
-          body: `<p>Modelos que <strong>criam conteúdo novo</strong> — texto, imagem, áudio, código — a partir de padrões aprendidos em dados massivos.</p>
-        <p>Exemplos: GPT, DALL·E, Stable Diffusion.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         },
         {
           title: 'Tokens e Context Window',
-          body: `<p>Texto é dividido em <strong>tokens</strong> (pedaços de palavras). A janela de contexto limita quantos tokens o modelo processa de uma vez.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         },
         {
           title: 'Prompt Engineering Básico',
-          body: `<p>Seja específico, dê contexto, defina formato de saída e use exemplos (few-shot). "Você é um especialista em..." ancora o comportamento.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         }
       ],
       intermediario: [
         {
           title: 'RAG — Retrieval Augmented Generation',
-          body: `<p>Combina busca em base de conhecimento (vetores/embeddings) com geração do LLM. Reduz alucinações e permite dados privados atualizados.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         },
         {
           title: 'Embeddings e Similaridade',
-          body: `<p>Textos viram vetores densos onde significado similar fica próximo no espaço. Cosine similarity mede proximidade semântica.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         },
         {
           title: 'Azure OpenAI — Visão Geral',
-          body: `<p>Serviço gerenciado com modelos GPT, embeddings, DALL·E e compliance enterprise — alinhado às certificações AI-102 e AI-900.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         }
       ],
       avancado: [
         {
           title: 'Agents e Tool Use',
-          body: `<p>Agentes orquestram chamadas a ferramentas (APIs, SQL, código) em loop raciocínio-ação. Frameworks: LangChain, Semantic Kernel, AutoGen.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         },
         {
           title: 'Fine-tuning de LLMs',
-          body: `<p>Ajuste supervisionado em pares instrução-resposta para especializar tom, formato ou domínio. Avalie com benchmarks e testes humanos.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         },
         {
           title: 'Segurança e Responsible AI',
-          body: `<p>Content filtering, red teaming, guardrails e monitoramento de drift. Princípios: fairness, transparência, privacidade e accountability.</p>`
+          body: `<p>EM CONSTRUÇÃO 🚧</p>`
         }
       ]
     }
