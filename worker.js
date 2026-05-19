@@ -62,11 +62,11 @@ async function handleStats(env) {
   }
 
   try {
-    const today = new Date().toISOString().split('T')[0];
-    const start = '2026-05-15'; // data de lançamento do site
+    const end = new Date().toISOString();
+    const start = '2026-05-15T00:00:00Z'; // data de lançamento do site
     const apiUrl =
       `https://${env.GOATCOUNTER_SITE}.goatcounter.com/api/v0/stats/hits` +
-      `?start=${start}&end=${today}&limit=50`;
+      `?start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}&limit=50`;
 
     const resp = await fetch(apiUrl, {
       headers: {
