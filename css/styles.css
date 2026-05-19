@@ -946,7 +946,7 @@ body {
 
 .cstats-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.85rem;
 }
 
@@ -1011,36 +1011,7 @@ body {
 }
 
 .cstat-icon--blue   { background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.25); }
-.cstat-icon--green  { background: rgba(52, 211, 153, 0.15); border: 1px solid rgba(52, 211, 153, 0.25); }
 .cstat-icon--fire   { background: rgba(251, 146, 60, 0.15); border: 1px solid rgba(251, 146, 60, 0.25); }
-.cstat-icon--cyan   { background: rgba(34, 211, 238, 0.13); border: 1px solid rgba(34, 211, 238, 0.25); }
-.cstat-icon--violet { background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.25); }
-
-/* Online pulse indicator */
-.online-badge {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: var(--green);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.online-pulse {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--green);
-  flex-shrink: 0;
-  animation: pulse-online 1.8s ease-in-out infinite;
-}
-
-@keyframes pulse-online {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5); }
-  50%       { box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); }
-}
 
 .cstat-value {
   font-size: 1.65rem;
@@ -1066,55 +1037,11 @@ body {
   max-width: 100%;
 }
 
-.cstat-value--time {
-  font-family: var(--mono);
-  font-size: 1.3rem;
-  -webkit-text-fill-color: transparent;
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-
 .cstat-label {
   font-size: 0.74rem;
   color: var(--text-dim);
   line-height: 1.35;
 }
-
-/* Progress card — full width */
-.cstat-card--wide {
-  grid-column: 1 / -1;
-}
-
-.cstat-progress-wrap {
-  margin-top: 0.7rem;
-}
-
-.cstat-progress-track {
-  height: 6px;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 999px;
-  overflow: hidden;
-  margin-bottom: 0.35rem;
-}
-
-.cstat-progress-bar {
-  height: 100%;
-  width: 0%;
-  background: var(--gradient);
-  border-radius: 999px;
-  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-  box-shadow: 0 0 12px rgba(34, 211, 238, 0.4);
-}
-
-.cstat-progress-meta {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.7rem;
-  color: var(--text-dim);
-}
-
-.cstat-progress-meta strong { color: var(--cyan); }
 
 /* ─── End Community Stats ─────────────────────────────────── */
 
@@ -1446,7 +1373,7 @@ mark.search-hit {
   .topbar { padding: 0 1rem; }
   .topbar-search { max-width: none; }
   .stats-row { grid-template-columns: 1fr; }
-  .cstats-grid { grid-template-columns: 1fr 1fr; }
+  .cstats-grid { grid-template-columns: 1fr; }
 
 
   .about-hero {
