@@ -53,8 +53,7 @@
 
       if (!resp.ok) return null;
 
-      const data = await resp.json();
-      return data.configured ? data : null;
+      return await resp.json();
     } catch {
       return null;
     }
@@ -68,6 +67,20 @@
 
     if (!stats) {
       if (badge) badge.textContent = '• aguardando dados reais';
+      if (elTotal) elTotal.textContent = '--';
+      if (elTopic) elTopic.textContent = 'Sem dados ainda';
+      return;
+    }
+
+    if (!stats.configured) {
+      if (badge) {
+        const messageByReason = {
+          missing_site: '• configure o site no GoatCounter',
+          missing_token: '• configure o token do GoatCounter',
+          fetch_failed: '• sem acesso aos dados agora',
+        };
+        badge.textContent = messageByReason[stats.reason] || '• aguardando dados reais';
+      }
       if (elTotal) elTotal.textContent = '--';
       if (elTopic) elTopic.textContent = 'Sem dados ainda';
       return;
