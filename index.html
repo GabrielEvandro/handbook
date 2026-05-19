@@ -9,6 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <!-- GoatCounter: substitua YOUR_CODE pelo seu código -->
+  <script data-goatcounter="https://YOUR_CODE.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
   <div class="bg-grid" aria-hidden="true"></div>
@@ -102,6 +105,70 @@
             <span class="stat-label">Ciclos de aprendizado</span>
           </div>
         </div>
+
+        <!-- Community Stats Panel -->
+        <div class="community-stats" id="communityStats" aria-label="Estatísticas da comunidade">
+          <p class="community-stats-label">Comunidade · ao vivo <span id="cstats-source-badge" style="margin-left:.35rem;font-size:.65rem;opacity:.5;font-weight:500;letter-spacing:.04em">• dados estimados</span></p>
+          <div class="cstats-grid">
+
+            <!-- 1. Visitantes totais -->
+            <div class="cstat-card" id="ccard-total">
+              <div class="cstat-top">
+                <div class="cstat-icon cstat-icon--blue">👥</div>
+              </div>
+              <div class="cstat-value" id="cstat-total-visits">18</div>
+              <div class="cstat-label">Visitantes totais</div>
+            </div>
+
+            <!-- 2. Online agora -->
+            <div class="cstat-card" id="ccard-online">
+              <div class="cstat-top">
+                <div class="cstat-icon cstat-icon--green">🟢</div>
+                <div class="online-badge"><span class="online-pulse"></span>ao vivo</div>
+              </div>
+              <div class="cstat-value" id="cstat-online-now">1</div>
+              <div class="cstat-label">Exploradores online agora</div>
+            </div>
+
+            <!-- 3. Tópico mais acessado -->
+            <div class="cstat-card" id="ccard-topic">
+              <div class="cstat-top">
+                <div class="cstat-icon cstat-icon--fire">🔥</div>
+              </div>
+              <div class="cstat-value cstat-value--text" id="cstat-top-topic">Média Aritmética</div>
+              <div class="cstat-label">Tópico mais acessado</div>
+            </div>
+
+            <!-- 4. Tempo médio -->
+            <div class="cstat-card" id="ccard-time">
+              <div class="cstat-top">
+                <div class="cstat-icon cstat-icon--cyan">⏱️</div>
+              </div>
+              <div class="cstat-value cstat-value--time" id="cstat-avg-time">4m 20s</div>
+              <div class="cstat-label">Tempo médio no site</div>
+            </div>
+
+            <!-- 5. Progresso da comunidade (full-width) -->
+            <div class="cstat-card cstat-card--wide" id="ccard-progress">
+              <div class="cstat-top">
+                <div class="cstat-icon cstat-icon--violet">🎓</div>
+              </div>
+              <div class="cstat-value" id="cstat-students">18</div>
+              <div class="cstat-label">pessoas já estudaram aqui</div>
+              <div class="cstat-progress-wrap">
+                <div class="cstat-progress-track">
+                  <div class="cstat-progress-bar" id="cstat-progress-bar"></div>
+                </div>
+                <div class="cstat-progress-meta">
+                  <span>Progresso da comunidade</span>
+                  <span>Meta: <strong>500</strong></span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- /Community Stats Panel -->
 
         <h2 class="section-title">Índice da Enciclopédia</h2>
         <div class="cards-grid">
@@ -275,5 +342,6 @@
 
   <script src="js/stats-demos.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/community-stats.js"></script>
 </body>
 </html>

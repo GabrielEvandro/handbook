@@ -270,7 +270,17 @@ function navigateTo(sectionId) {
 
   closeSidebar();
   window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Rastreia a navegação no GoatCounter (SPA manual count)
+  if (typeof window.goatcounter?.count === 'function') {
+    window.goatcounter.count({
+      path: sectionId === 'inicio' ? '/' : '/' + sectionId,
+      title: document.title,
+      event: false,
+    });
+  }
 }
+
 
 function closeSidebar() {
   sidebar?.classList.remove('open');
