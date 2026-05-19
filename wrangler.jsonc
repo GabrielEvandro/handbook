@@ -14,8 +14,7 @@
     "nodejs_compat"
   ],
   "vars": {
-    // Substitua YOUR_CODE pelo código do seu site no GoatCounter
-    // ex: se a URL for "handbook.goatcounter.com", coloque "handbook"
-    "GOATCOUNTER_SITE": "YOUR_CODE"
+    // Se a URL for "gabrielprado.goatcounter.com", o código é "gabrielprado"
+    "GOATCOUNTER_SITE": "gabrielprado"
   }
 }

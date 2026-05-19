@@ -11,6 +11,10 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    if (url.pathname === '/api/config') {
+      return handleConfig(env);
+    }
+
     if (url.pathname === '/api/stats') {
       return handleStats(env);
     }
@@ -20,15 +24,41 @@ export default {
   },
 };
 
+function handleConfig(env) {
+  const headers = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Cache-Control': 'public, max-age=300',
+  };
+
+  const goatcounterConfigured = Boolean(
+    env.GOATCOUNTER_SITE && env.GOATCOUNTER_SITE !== 'YOUR_CODE'
+  );
+
+  return new Response(JSON.stringify({
+    goatcounterConfigured,
+    goatcounterSite: goatcounterConfigured ? env.GOATCOUNTER_SITE : null,
+  }), { status: 200, headers });
+}
+
 async function handleStats(env) {
   const headers = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
   };
 
-  // Retorna { configured: false } se ainda não foi configurado
-  if (!env.GOATCOUNTER_TOKEN || !env.GOATCOUNTER_SITE || env.GOATCOUNTER_SITE === 'YOUR_CODE') {
-    return new Response(JSON.stringify({ configured: false }), { status: 200, headers });
+  if (!env.GOATCOUNTER_SITE || env.GOATCOUNTER_SITE === 'YOUR_CODE') {
+    return new Response(JSON.stringify({
+      configured: false,
+      reason: 'missing_site',
+    }), { status: 200, headers });
+  }
+
+  if (!env.GOATCOUNTER_TOKEN) {
+    return new Response(JSON.stringify({
+      configured: false,
+      reason: 'missing_token',
+    }), { status: 200, headers });
   }
 
   try {
@@ -81,9 +111,8 @@ async function handleStats(env) {
       },
     });
   } catch (err) {
-    // Falha silenciosa — o frontend cai no modo simulado
     return new Response(
-      JSON.stringify({ configured: false, error: err.message }),
+      JSON.stringify({ configured: false, reason: 'fetch_failed', error: err.message }),
       { status: 200, headers }
     );
   }
