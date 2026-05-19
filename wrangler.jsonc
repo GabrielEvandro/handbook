@@ -2,13 +2,20 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "handbook",
   "compatibility_date": "2026-05-15",
+  "main": "worker.js",
   "observability": {
     "enabled": true
   },
   "assets": {
-    "directory": "."
+    "directory": ".",
+    "binding": "ASSETS"
   },
   "compatibility_flags": [
     "nodejs_compat"
-  ]
+  ],
+  "vars": {
+    // Substitua YOUR_CODE pelo código do seu site no GoatCounter
+    // ex: se a URL for "handbook.goatcounter.com", coloque "handbook"
+    "GOATCOUNTER_SITE": "YOUR_CODE"
+  }
 }
