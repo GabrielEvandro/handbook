@@ -107,7 +107,7 @@ async function handleStats(env) {
     return new Response(JSON.stringify({ configured: true, total, topTopic }), {
       headers: {
         ...headers,
-        'Cache-Control': 'public, max-age=300', // cache de 5 min
+        'Cache-Control': 'no-store',
       },
     });
   } catch (err) {

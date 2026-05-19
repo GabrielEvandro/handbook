@@ -10,6 +10,8 @@
 (function () {
   'use strict';
 
+  let hasAnimatedTotal = false;
+
   function formatNumber(n) {
     return Number(n || 0).toLocaleString('pt-BR');
   }
@@ -48,7 +50,10 @@
     try {
       const ctrl = new AbortController();
       const timer = setTimeout(() => ctrl.abort(), 3000);
-      const resp = await fetch('/api/stats', { signal: ctrl.signal });
+      const resp = await fetch(`/api/stats?t=${Date.now()}`, {
+        signal: ctrl.signal,
+        cache: 'no-store',
+      });
       clearTimeout(timer);
 
       if (!resp.ok) return null;
@@ -90,12 +95,26 @@
     if (elTotal) elTotal.textContent = formatNumber(stats.total);
     if (elTopic) elTopic.textContent = stats.topTopic || 'Sem dados ainda';
 
-    observeAndAnimate(elTotal, stats.total);
+    if (!hasAnimatedTotal) {
+      observeAndAnimate(elTotal, stats.total);
+      hasAnimatedTotal = true;
+    }
+  }
+
+  function scheduleRefresh() {
+    setInterval(render, 15000);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) render();
+    });
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', render);
+    document.addEventListener('DOMContentLoaded', () => {
+      render();
+      scheduleRefresh();
+    });
   } else {
     render();
+    scheduleRefresh();
   }
 })();
