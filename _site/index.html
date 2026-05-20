@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Foundation — Handbook interativo de Estatística, Python e IA. Preservando conhecimento do básico ao avançado.">
+  <title>Foundation | Handbook de Dados & IA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="glow glow-1" aria-hidden="true"></div>
+  <div class="glow glow-2" aria-hidden="true"></div>
+
+  <!-- Mobile overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="logo">
+        <span class="logo-icon" aria-hidden="true">✦</span>
+        <span class="logo-text">Foundation</span>
+      </div>
+      <p class="logo-tagline">Enciclopédia · Terminus</p>
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Navegação principal">
+      <a href="#inicio" class="nav-link active" data-section="inicio">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+        Início
+      </a>
+      <a href="#estatistica" class="nav-link" data-section="estatistica">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        Estatística
+      </a>
+      <a href="#python" class="nav-link" data-section="python">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Python
+      </a>
+      <a href="#ia" class="nav-link" data-section="ia">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        Inteligência Artificial
+      </a>
+      <a href="#sobre" class="nav-link" data-section="sobre">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+        Sobre mim
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <p class="sidebar-quote">«O conhecimento preservado hoje ilumina as eras de amanhã.»</p>
+      <p class="sidebar-credit">Inspirado em Isaac Asimov</p>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main-wrapper">
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="topbar-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="search" id="globalSearch" placeholder="Consultar a enciclopédia..." autocomplete="off">
+      </div>
+    </header>
+
+    <main class="content" id="content">
+
+      <!-- INÍCIO -->
+      <section id="inicio" class="page-section active">
+        <div class="hero">
+          <span class="badge">Handbook Interativo · Seldon Archives</span>
+          <h1>Bem-vindo à <span class="gradient-text">Foundation</span></h1>
+          <p class="hero-subtitle">
+            Como a <strong>Enciclopédia Galáctica</strong> de Asimov, este handbook preserva e organiza o conhecimento
+            em Estatística, Python e Inteligência Artificial — do fundamental ao avançado, com a clareza
+            de quem explica o complexo como se fosse simples.
+          </p>
+          <p class="hero-epigraph">Psicohistória dos dados: padrões no caos, previsões no ruído.</p>
+          <div class="hero-actions">
+            <a href="#estatistica" class="btn btn-primary" data-section="estatistica">Abrir os arquivos</a>
+            <a href="#sobre" class="btn btn-ghost" data-section="sobre">O arquivista</a>
+          </div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <span class="stat-number">3</span>
+            <span class="stat-label">Volumes do conhecimento</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">3</span>
+            <span class="stat-label">Ramos da IA</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">∞</span>
+            <span class="stat-label">Ciclos de aprendizado</span>
+          </div>
+        </div>
+
+        <h2 class="section-title">Índice da Enciclopédia</h2>
+        <div class="cards-grid">
+          <article class="topic-card" data-goto="estatistica">
+            <div class="topic-icon topic-icon--stats">Σ</div>
+            <h3>Estatística</h3>
+            <p>Probabilidade, distribuições, inferência e análise exploratória — com intuição antes da fórmula.</p>
+            <span class="topic-level">Básico → Avançado</span>
+          </article>
+          <article class="topic-card" data-goto="python">
+            <div class="topic-icon topic-icon--python">&lt;/&gt;</div>
+            <h3>Python</h3>
+            <p>Sintaxe, estruturas de dados, NumPy, Pandas e boas práticas para ciência de dados.</p>
+            <span class="topic-level">Básico → Avançado</span>
+          </article>
+          <article class="topic-card" data-goto="ia">
+            <div class="topic-icon topic-icon--ai">◎</div>
+            <h3>Inteligência Artificial</h3>
+            <p>Machine Learning, Deep Learning e IA Generativa — conceitos claros e exemplos práticos.</p>
+            <span class="topic-level">ML · DL · GenAI</span>
+          </article>
+        </div>
+      </section>
+
+      <!-- ESTATÍSTICA -->
+      <section id="estatistica" class="page-section">
+        <header class="page-header">
+          <span class="page-icon page-icon--stats">Σ</span>
+          <div>
+            <h1>Estatística</h1>
+            <p>Fundamentos quantitativos para decisões baseadas em dados.</p>
+          </div>
+        </header>
+
+        <div class="level-tabs" role="tablist">
+          <button class="level-tab active" data-level="basico">Básico</button>
+          <button class="level-tab" data-level="intermediario">Intermediário</button>
+          <button class="level-tab" data-level="avancado">Avançado</button>
+        </div>
+
+        <div class="accordion-list" id="statsTopics">
+          <!-- populated by JS -->
+        </div>
+      </section>
+
+      <!-- PYTHON -->
+      <section id="python" class="page-section">
+        <header class="page-header">
+          <span class="page-icon page-icon--python">&lt;/&gt;</span>
+          <div>
+            <h1>Python</h1>
+            <p>A linguagem que conecta análise, automação e modelos de IA.</p>
+          </div>
+        </header>
+
+        <div class="level-tabs" role="tablist">
+          <button class="level-tab active" data-level="basico">Básico</button>
+          <button class="level-tab" data-level="intermediario">Intermediário</button>
+          <button class="level-tab" data-level="avancado">Avançado</button>
+        </div>
+
+        <div class="accordion-list" id="pythonTopics"></div>
+      </section>
+
+      <!-- IA -->
+      <section id="ia" class="page-section">
+        <header class="page-header">
+          <span class="page-icon page-icon--ai">◎</span>
+          <div>
+            <h1>Inteligência Artificial</h1>
+            <p>Do aprendizado supervisionado aos modelos generativos de última geração.</p>
+          </div>
+        </header>
+
+        <div class="sub-tabs" role="tablist" id="iaSubTabs">
+          <button class="sub-tab active" data-subtab="ml">Machine Learning</button>
+          <button class="sub-tab" data-subtab="dl">Deep Learning</button>
+          <button class="sub-tab" data-subtab="genai">IA Generativa</button>
+        </div>
+
+        <div class="level-tabs" role="tablist">
+          <button class="level-tab active" data-level="basico">Básico</button>
+          <button class="level-tab" data-level="intermediario">Intermediário</button>
+          <button class="level-tab" data-level="avancado">Avançado</button>
+        </div>
+
+        <div class="accordion-list" id="iaTopics"></div>
+      </section>
+
+      <!-- SOBRE -->
+      <section id="sobre" class="page-section">
+        <div class="about-hero">
+          <div class="about-photo-wrap">
+            <img src="assets/foto-perfil.jpg" alt="Foto de Gabriel Prado" class="about-photo" onerror="this.src='assets/foto-perfil.svg'">
+            <div class="about-photo-ring" aria-hidden="true"></div>
+          </div>
+          <div class="about-intro">
+            <span class="badge">Arquivista da Foundation</span>
+            <h1>Gabriel Prado</h1>
+            <p class="about-role">Cientista de Dados · Engenheiro de IA</p>
+            <p class="about-company">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+              <strong>5 anos</strong> na <strong>Dataside</strong>
+            </p>
+            <p class="about-bio">
+              Curador desta Foundation digital: compartilho o que aprendi em cinco anos na Dataside,
+              transformando conceitos complexos de dados e IA em capítulos claros e progressivos —
+              como entradas de uma enciclopédia feita para sobreviver às eras.
+            </p>
+          </div>
+        </div>
+
+        <h2 class="section-title">Formação & Certificações</h2>
+        <div class="certs-grid">
+          <div class="cert-card">
+            <span class="cert-badge">Azure</span>
+            <h3>DP-900</h3>
+            <p>Azure Data Fundamentals</p>
+          </div>
+          <div class="cert-card">
+            <span class="cert-badge">Azure</span>
+            <h3>DP-100</h3>
+            <p>Azure Data Scientist Associate</p>
+          </div>
+          <div class="cert-card">
+            <span class="cert-badge">Azure</span>
+            <h3>AI-102</h3>
+            <p>Azure AI Engineer Associate</p>
+          </div>
+          <div class="cert-card">
+            <span class="cert-badge">Azure</span>
+            <h3>AI-900</h3>
+            <p>Azure AI Fundamentals</p>
+          </div>
+          <div class="cert-card">
+            <span class="cert-badge">Azure</span>
+            <h3>AZ-900</h3>
+            <p>Azure Fundamentals</p>
+          </div>
+          <div class="cert-card cert-card--edu">
+            <span class="cert-badge cert-badge--edu">Graduação</span>
+            <h3>Tecnólogo</h3>
+            <p>Ciência de Dados</p>
+          </div>
+          <div class="cert-card cert-card--edu cert-card--wide">
+            <span class="cert-badge cert-badge--edu">Pós-graduação</span>
+            <h3>Desenvolvimento de Aplicações</h3>
+            <p>de Inteligência Artificial Generativa</p>
+          </div>
+        </div>
+
+        <h2 class="section-title">Áreas de expertise</h2>
+        <div class="skills-row">
+          <span class="skill-pill">Estatística aplicada</span>
+          <span class="skill-pill">Python & Pandas</span>
+          <span class="skill-pill">Machine Learning</span>
+          <span class="skill-pill">Deep Learning</span>
+          <span class="skill-pill">LLMs & GenAI</span>
+          <span class="skill-pill">Azure Cloud</span>
+          <span class="skill-pill">MLOps</span>
+          <span class="skill-pill">Visualização de dados</span>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 <strong>Foundation</strong> — Handbook de Dados & IA · <em>Ad astra per data</em></p>
+    </footer>
+  </div>
+
+  <script src="js/stats-demos.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
