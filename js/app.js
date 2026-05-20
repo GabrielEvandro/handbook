@@ -270,10 +270,6 @@ function navigateTo(sectionId) {
 
   closeSidebar();
   window.scrollTo({ top: 0, behavior: 'smooth' });
-
-  if (typeof window.trackGoatcounterPageview === 'function') {
-    window.trackGoatcounterPageview(sectionId === 'inicio' ? '/' : '/' + sectionId);
-  }
 }
 
 

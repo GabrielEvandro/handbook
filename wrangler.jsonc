@@ -12,9 +12,5 @@
   },
   "compatibility_flags": [
     "nodejs_compat"
-  ],
-  "vars": {
-    // Se a URL for "gabrielprado.goatcounter.com", o código é "gabrielprado"
-    "GOATCOUNTER_SITE": "gabrielprado"
-  }
+  ]
 }
