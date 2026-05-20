@@ -250,6 +250,7 @@ const CONTENT = {
 let currentSection = 'inicio';
 let currentLevel = 'basico';
 let currentIaSubtab = 'ml';
+let lastSearchQuery = '';
 
 // DOM
 const sections = document.querySelectorAll('.page-section');
@@ -258,7 +259,7 @@ const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('sidebarOverlay');
 const menuToggle = document.getElementById('menuToggle');
 
-function navigateTo(sectionId) {
+function navigateTo(sectionId, source = 'navigation') {
   currentSection = sectionId;
   const hash = sectionId === 'inicio' ? '' : sectionId;
 
@@ -269,7 +270,7 @@ function navigateTo(sectionId) {
   else history.replaceState(null, '', window.location.pathname);
 
   document.dispatchEvent(new CustomEvent('foundation:navigate', {
-    detail: { sectionId }
+    detail: { sectionId, source }
   }));
 
   closeSidebar();
@@ -325,6 +326,14 @@ function renderAccordion(containerId, topics) {
       if (!isOpen) {
         item.classList.add('open');
         btn.setAttribute('aria-expanded', 'true');
+        document.dispatchEvent(new CustomEvent('foundation:topic_open', {
+          detail: {
+            sectionId: currentSection,
+            level: currentLevel,
+            iaSubtab: currentSection === 'ia' ? currentIaSubtab : null,
+            topicTitle: btn.textContent.trim()
+          }
+        }));
         initStatsDemos(item);
       }
     });
@@ -351,19 +360,19 @@ function refreshIaTopics() {
 function initFromHash() {
   const hash = window.location.hash.replace('#', '') || 'inicio';
   const valid = ['inicio', 'estatistica', 'python', 'ia', 'sobre'];
-  navigateTo(valid.includes(hash) ? hash : 'inicio');
+  navigateTo(valid.includes(hash) ? hash : 'inicio', 'hash');
 }
 
 // Navigation clicks
 document.querySelectorAll('[data-section]').forEach(el => {
   el.addEventListener('click', e => {
     e.preventDefault();
-    navigateTo(el.dataset.section);
+    navigateTo(el.dataset.section, 'nav_click');
   });
 });
 
 document.querySelectorAll('.topic-card').forEach(card => {
-  card.addEventListener('click', () => navigateTo(card.dataset.goto));
+  card.addEventListener('click', () => navigateTo(card.dataset.goto, 'topic_card'));
 });
 
 // Level tabs (per section)
@@ -374,6 +383,13 @@ function setupLevelTabs(sectionEl) {
       tabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       currentLevel = tab.dataset.level;
+      document.dispatchEvent(new CustomEvent('foundation:level_change', {
+        detail: {
+          sectionId: sectionEl.id,
+          level: currentLevel,
+          iaSubtab: sectionEl.id === 'ia' ? currentIaSubtab : null
+        }
+      }));
       if (sectionEl.id === 'estatistica') refreshStatsTopics();
       if (sectionEl.id === 'python') refreshPythonTopics();
       if (sectionEl.id === 'ia') refreshIaTopics();
@@ -392,6 +408,13 @@ document.querySelectorAll('#iaSubTabs .sub-tab').forEach(tab => {
     tab.classList.add('active');
     currentIaSubtab = tab.dataset.subtab;
     currentLevel = 'basico';
+    document.dispatchEvent(new CustomEvent('foundation:ia_subtab_change', {
+      detail: {
+        sectionId: 'ia',
+        iaSubtab: currentIaSubtab,
+        level: currentLevel
+      }
+    }));
     document.querySelectorAll('#ia .level-tab').forEach((t, i) => {
       t.classList.toggle('active', i === 0);
     });
@@ -412,6 +435,17 @@ const searchInput = document.getElementById('globalSearch');
 searchInput?.addEventListener('input', () => {
   const q = searchInput.value.trim().toLowerCase();
   if (!q) {
+    if (lastSearchQuery) {
+      document.dispatchEvent(new CustomEvent('foundation:search', {
+        detail: {
+          query: '',
+          resultsCount: 0,
+          destinationSection: currentSection,
+          action: 'clear'
+        }
+      }));
+    }
+    lastSearchQuery = '';
     document.querySelectorAll('.accordion-item').forEach(el => el.classList.remove('hidden'));
     return;
   }
@@ -449,12 +483,25 @@ searchInput?.addEventListener('input', () => {
   });
 
   currentLevel = document.querySelector('.page-section.active .level-tab.active')?.dataset.level || 'basico';
+  const visibleResults = document.querySelectorAll('.accordion-item:not(.hidden)').length;
 
   if (foundSection) {
-    navigateTo(foundSection);
+    navigateTo(foundSection, 'search');
     if (foundSection === 'estatistica') refreshStatsTopics();
     if (foundSection === 'python') refreshPythonTopics();
     if (foundSection === 'ia') refreshIaTopics();
+  }
+
+  if (q !== lastSearchQuery) {
+    document.dispatchEvent(new CustomEvent('foundation:search', {
+      detail: {
+        query: q,
+        resultsCount: visibleResults,
+        destinationSection: foundSection || currentSection,
+        action: 'search'
+      }
+    }));
+    lastSearchQuery = q;
   }
 });
 

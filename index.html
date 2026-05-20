@@ -23,12 +23,15 @@
   <meta name="theme-color" content="#0f172a">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QPF9KYPK8L"></script>
   <script>
+    const analyticsDebugMode = new URLSearchParams(window.location.search).has('debug_analytics');
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-QPF9KYPK8L', {
-      page_path: window.location.pathname + window.location.hash
+      page_path: window.location.pathname + window.location.hash,
+      debug_mode: analyticsDebugMode
     });
+    window.analyticsDebugMode = analyticsDebugMode;
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
