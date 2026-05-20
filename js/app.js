@@ -268,6 +268,10 @@ function navigateTo(sectionId) {
   if (hash) history.replaceState(null, '', `#${sectionId}`);
   else history.replaceState(null, '', window.location.pathname);
 
+  document.dispatchEvent(new CustomEvent('foundation:navigate', {
+    detail: { sectionId }
+  }));
+
   closeSidebar();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
