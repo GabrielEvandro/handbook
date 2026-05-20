@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "rm -rf _site && mkdir -p _site && cp index.html robots.txt sitemap.xml _site/ && cp -R assets css js _site/",
+    "deploy": "npm run build && firebase deploy --only hosting"
+  },
+  "devDependencies": {
+    "firebase-tools": "^15.18.0"
+  }
+}
