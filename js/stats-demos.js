@@ -18,6 +18,27 @@ function initStatsDemos(root = document) {
   });
 }
 
+function initLLMDemos(root = document) {
+  root.querySelectorAll('[data-demo="llm-next-token"]').forEach(el => {
+    if (!el.querySelector('.demo-panel')) initLlmNextTokenDemo(el);
+  });
+  root.querySelectorAll('[data-demo="llm-tokenizer"]').forEach(el => {
+    if (!el.querySelector('.demo-panel')) initLlmTokenizerDemo(el);
+  });
+  root.querySelectorAll('[data-demo="llm-embeddings"]').forEach(el => {
+    if (!el.querySelector('.demo-panel')) initLlmEmbeddingsDemo(el);
+  });
+  root.querySelectorAll('[data-demo="llm-attention"]').forEach(el => {
+    if (!el.querySelector('.demo-panel')) initLlmAttentionDemo(el);
+  });
+  root.querySelectorAll('[data-demo="llm-context"]').forEach(el => {
+    if (!el.querySelector('.demo-panel')) initLlmContextDemo(el);
+  });
+  root.querySelectorAll('[data-demo="llm-temperature"]').forEach(el => {
+    if (!el.querySelector('.demo-panel')) initLlmTemperatureDemo(el);
+  });
+}
+
 /* —— MÉDIA —— */
 function initMediaDemo(wrap) {
   const defaults = [10, 12, 14, 18];
@@ -375,5 +396,390 @@ function initModaDemo(wrap) {
   }
 
   renderControls();
+  render();
+}
+
+/* —— LLM demos —— */
+
+function tokenizeText(text) {
+  return text
+    .split(/(\s+|[.,!?;:()"\-])/)
+    .filter(Boolean)
+    .flatMap(part => {
+      if (/^\s+$/.test(part) || /^[.,!?;:()"\-]$/.test(part)) return [part];
+      if (part.length <= 6) return [part];
+      const tokens = [];
+      let remaining = part;
+      while (remaining.length > 6) {
+        const cut = Math.max(3, Math.min(6, Math.ceil(remaining.length / 2)));
+        tokens.push(remaining.slice(0, cut));
+        remaining = remaining.slice(cut);
+      }
+      if (remaining) tokens.push(remaining);
+      return tokens;
+    });
+}
+
+function softmaxFromBase(base, temperature) {
+  const adjusted = base.map(v => Math.exp(Math.log(v) / temperature));
+  const total = adjusted.reduce((sum, v) => sum + v, 0) || 1;
+  return adjusted.map(v => (v / total) * 100);
+}
+
+function initLlmTokenizerDemo(wrap) {
+  const sample = 'Inteligência Artificial aprende padrões em textos, códigos e conversas.';
+
+  wrap.innerHTML = `
+    <div class="demo-panel llm-demo-panel">
+      <div class="llm-demo-head">
+        <h3>Tokenizer Playground</h3>
+        <p>Digite uma frase e veja como um texto longo pode ser quebrado em partes menores.</p>
+      </div>
+      <textarea class="llm-textarea" rows="3">${sample}</textarea>
+      <div class="llm-token-strip"></div>
+      <div class="demo-formula-box llm-inline-stats"></div>
+    </div>
+  `;
+
+  const input = wrap.querySelector('.llm-textarea');
+  const strip = wrap.querySelector('.llm-token-strip');
+  const stats = wrap.querySelector('.llm-inline-stats');
+
+  function render() {
+    const tokens = tokenizeText(input.value.trim() || sample);
+    strip.innerHTML = tokens.map(token => {
+      const printable = token.replace(/ /g, '␠');
+      const cls = /^\s+$/.test(token) ? 'llm-token llm-token--space' : 'llm-token';
+      return `<span class="${cls}">${printable}</span>`;
+    }).join('');
+    stats.innerHTML = `
+      <p><strong>Tokens gerados:</strong> ${tokens.length}</p>
+      <p><strong>Ideia principal:</strong> o modelo lê pedaços de texto, não necessariamente palavras completas.</p>
+    `;
+  }
+
+  input.addEventListener('input', render);
+  render();
+}
+
+function initLlmNextTokenDemo(wrap) {
+  const presets = {
+    'O céu é': [
+      { token: 'azul', p: 0.48 },
+      { token: 'claro', p: 0.22 },
+      { token: 'bonito', p: 0.18 },
+      { token: 'infinito', p: 0.12 }
+    ],
+    'O futuro da IA será': [
+      { token: 'transformador', p: 0.36 },
+      { token: 'gradual', p: 0.24 },
+      { token: 'disputado', p: 0.21 },
+      { token: 'imprevisível', p: 0.19 }
+    ],
+    'Uma boa documentação precisa ser': [
+      { token: 'clara', p: 0.42 },
+      { token: 'objetiva', p: 0.26 },
+      { token: 'útil', p: 0.2 },
+      { token: 'curta', p: 0.12 }
+    ]
+  };
+
+  wrap.innerHTML = `
+    <div class="demo-panel llm-demo-panel">
+      <div class="llm-demo-head">
+        <h3>Predict Next Token</h3>
+        <p>Escolha um contexto e veja como o modelo distribui probabilidade entre possíveis continuações.</p>
+      </div>
+      <div class="demo-btn-row llm-preset-row"></div>
+      <div class="llm-next-context"></div>
+      <div class="llm-prob-list"></div>
+      <div class="demo-btn-row">
+        <button type="button" class="btn btn-ghost btn-sm llm-generate-btn">Gerar próximo token</button>
+      </div>
+      <div class="demo-formula-box llm-generation-result"></div>
+    </div>
+  `;
+
+  const presetRow = wrap.querySelector('.llm-preset-row');
+  const contextEl = wrap.querySelector('.llm-next-context');
+  const probList = wrap.querySelector('.llm-prob-list');
+  const resultEl = wrap.querySelector('.llm-generation-result');
+  const button = wrap.querySelector('.llm-generate-btn');
+
+  let currentKey = Object.keys(presets)[0];
+
+  function weightedPick(items) {
+    const total = items.reduce((sum, item) => sum + item.p, 0);
+    let roll = Math.random() * total;
+    for (const item of items) {
+      roll -= item.p;
+      if (roll <= 0) return item;
+    }
+    return items[items.length - 1];
+  }
+
+  function render() {
+    presetRow.innerHTML = Object.keys(presets).map(key => `
+      <button type="button" class="btn btn-ghost btn-sm ${key === currentKey ? 'llm-chip-active' : ''}" data-key="${key}">${key}</button>
+    `).join('');
+    contextEl.innerHTML = `<p><strong>Contexto:</strong> ${currentKey}<span class="llm-cursor">|</span></p>`;
+    probList.innerHTML = presets[currentKey].map(item => `
+      <div class="llm-prob-row">
+        <div class="llm-prob-meta">
+          <span>${item.token}</span>
+          <strong>${Math.round(item.p * 100)}%</strong>
+        </div>
+        <div class="llm-prob-track"><div class="llm-prob-fill" style="width:${item.p * 100}%"></div></div>
+      </div>
+    `).join('');
+    resultEl.innerHTML = '<p>Clique em <strong>Gerar próximo token</strong> para simular a escolha.</p>';
+
+    presetRow.querySelectorAll('[data-key]').forEach(el => {
+      el.addEventListener('click', () => {
+        currentKey = el.dataset.key;
+        render();
+      });
+    });
+  }
+
+  button.addEventListener('click', () => {
+    const picked = weightedPick(presets[currentKey]);
+    resultEl.innerHTML = `
+      <p><strong>Token escolhido:</strong> ${picked.token}</p>
+      <p>O modelo não recupera uma resposta pronta: ele escolhe uma continuação plausível e continua o processo a partir dela.</p>
+    `;
+  });
+
+  render();
+}
+
+function initLlmEmbeddingsDemo(wrap) {
+  const groups = {
+    rei: ['rainha', 'príncipe', 'monarca', 'trono'],
+    gato: ['cachorro', 'felino', 'animal', 'pet'],
+    código: ['Python', 'função', 'algoritmo', 'debug'],
+    hospital: ['médico', 'paciente', 'cirurgia', 'clínica']
+  };
+
+  wrap.innerHTML = `
+    <div class="demo-panel llm-demo-panel">
+      <div class="llm-demo-head">
+        <h3>Embeddings Visualizer</h3>
+        <p>Escolha um conceito e veja vizinhos semânticos próximos no espaço vetorial.</p>
+      </div>
+      <div class="demo-btn-row llm-embedding-buttons"></div>
+      <div class="llm-embedding-cloud"></div>
+      <div class="demo-formula-box llm-inline-stats"></div>
+    </div>
+  `;
+
+  const buttons = wrap.querySelector('.llm-embedding-buttons');
+  const cloud = wrap.querySelector('.llm-embedding-cloud');
+  const stats = wrap.querySelector('.llm-inline-stats');
+  let current = 'rei';
+
+  function render() {
+    buttons.innerHTML = Object.keys(groups).map(key => `
+      <button type="button" class="btn btn-ghost btn-sm ${key === current ? 'llm-chip-active' : ''}" data-word="${key}">${key}</button>
+    `).join('');
+
+    const related = groups[current];
+    cloud.innerHTML = `
+      <span class="llm-node llm-node--core">${current}</span>
+      ${related.map((word, index) => `
+        <span class="llm-node" style="--delay:${index}">${word}</span>
+      `).join('')}
+    `;
+    stats.innerHTML = `
+      <p><strong>Leitura intuitiva:</strong> embeddings aproximam tokens que aparecem em contextos parecidos.</p>
+      <p><strong>Importante:</strong> proximidade vetorial não é “entendimento humano”, mas ajuda o modelo a generalizar relações.</p>
+    `;
+
+    buttons.querySelectorAll('[data-word]').forEach(el => {
+      el.addEventListener('click', () => {
+        current = el.dataset.word;
+        render();
+      });
+    });
+  }
+
+  render();
+}
+
+function initLlmAttentionDemo(wrap) {
+  const tokens = ['O', 'gato', 'dormiu', 'no', 'sofá', 'porque', 'ele', 'estava', 'cansado'];
+  const links = {
+    gato: [
+      ['dormiu', 0.82],
+      ['ele', 0.76],
+      ['cansado', 0.44]
+    ],
+    ele: [
+      ['gato', 0.88],
+      ['dormiu', 0.53],
+      ['cansado', 0.71]
+    ],
+    cansado: [
+      ['ele', 0.79],
+      ['gato', 0.61],
+      ['dormiu', 0.48]
+    ]
+  };
+
+  wrap.innerHTML = `
+    <div class="demo-panel llm-demo-panel">
+      <div class="llm-demo-head">
+        <h3>Attention Visualizer</h3>
+        <p>Clique em uma palavra para ver quais outras partes da frase recebem mais atenção.</p>
+      </div>
+      <div class="llm-attention-sentence"></div>
+      <div class="llm-attention-links"></div>
+      <div class="demo-formula-box llm-inline-stats"></div>
+    </div>
+  `;
+
+  const sentence = wrap.querySelector('.llm-attention-sentence');
+  const linkBox = wrap.querySelector('.llm-attention-links');
+  const stats = wrap.querySelector('.llm-inline-stats');
+  let current = 'ele';
+
+  function render() {
+    sentence.innerHTML = tokens.map(token => {
+      const active = token === current ? 'llm-word--active' : '';
+      const related = (links[current] || []).some(([word]) => word === token) ? 'llm-word--related' : '';
+      return `<button type="button" class="llm-word ${active} ${related}" data-token="${token}">${token}</button>`;
+    }).join('');
+
+    const currentLinks = links[current] || [];
+    linkBox.innerHTML = currentLinks.map(([token, weight]) => `
+      <div class="llm-link-row">
+        <span>${current} → ${token}</span>
+        <div class="llm-prob-track"><div class="llm-prob-fill" style="width:${weight * 100}%"></div></div>
+        <strong>${Math.round(weight * 100)}%</strong>
+      </div>
+    `).join('');
+
+    stats.innerHTML = `
+      <p><strong>Leitura:</strong> attention não é magia; é um jeito matemático de medir relevância entre partes da sequência.</p>
+      <p><strong>Exemplo:</strong> o pronome <code>${current}</code> depende de outras palavras para ser interpretado.</p>
+    `;
+
+    sentence.querySelectorAll('[data-token]').forEach(el => {
+      el.addEventListener('click', () => {
+        if (links[el.dataset.token]) current = el.dataset.token;
+        render();
+      });
+    });
+  }
+
+  render();
+}
+
+function initLlmContextDemo(wrap) {
+  const baseMessages = [
+    'Sistema: responda de forma didática.',
+    'Usuário: explique transformers.',
+    'Assistente: transformer usa attention para relacionar tokens.',
+    'Usuário: agora compare com RNNs.',
+    'Assistente: RNNs processam sequências de modo mais serial.'
+  ];
+
+  wrap.innerHTML = `
+    <div class="demo-panel llm-demo-panel">
+      <div class="llm-demo-head">
+        <h3>Context Window Simulator</h3>
+        <p>Adicione texto e observe a janela de contexto encher. Quando ela passa do limite, as partes mais antigas perdem espaço.</p>
+      </div>
+      <textarea class="llm-textarea" rows="4" placeholder="Digite mais contexto para a conversa..."></textarea>
+      <div class="llm-context-bar"><div class="llm-context-fill"></div></div>
+      <div class="llm-context-meta"></div>
+      <div class="llm-context-list"></div>
+    </div>
+  `;
+
+  const input = wrap.querySelector('.llm-textarea');
+  const bar = wrap.querySelector('.llm-context-fill');
+  const meta = wrap.querySelector('.llm-context-meta');
+  const list = wrap.querySelector('.llm-context-list');
+  const limit = 220;
+
+  function render() {
+    const extra = input.value.trim();
+    const messages = extra ? [...baseMessages, `Usuário: ${extra}`] : [...baseMessages];
+    const fullText = messages.join(' ');
+    const used = Math.min(fullText.length, limit);
+    const pct = Math.min((used / limit) * 100, 100);
+    bar.style.width = `${pct}%`;
+    bar.classList.toggle('llm-context-fill--warn', pct > 80);
+
+    meta.innerHTML = `
+      <p><strong>Uso da janela:</strong> ${used}/${limit} caracteres simulados</p>
+      <p>${pct < 100 ? 'Ainda há espaço para contexto recente.' : 'Limite atingido: mensagens mais antigas precisam ser resumidas ou descartadas.'}</p>
+    `;
+
+    const overflow = Math.max(fullText.length - limit, 0);
+    let budget = overflow;
+    list.innerHTML = messages.map(msg => {
+      const faded = budget > 0;
+      budget -= msg.length;
+      return `<div class="llm-context-item ${faded ? 'llm-context-item--faded' : ''}">${msg}</div>`;
+    }).join('');
+  }
+
+  input.addEventListener('input', render);
+  render();
+}
+
+function initLlmTemperatureDemo(wrap) {
+  const base = [
+    { token: 'clara', p: 0.42 },
+    { token: 'útil', p: 0.25 },
+    { token: 'criativa', p: 0.18 },
+    { token: 'surpreendente', p: 0.15 }
+  ];
+
+  wrap.innerHTML = `
+    <div class="demo-panel llm-demo-panel">
+      <div class="llm-demo-head">
+        <h3>Temperature Demo</h3>
+        <p>Arraste o slider para ver como a distribuição de probabilidade fica mais concentrada ou mais espalhada.</p>
+      </div>
+      <label class="demo-slider-row">
+        <span class="demo-slider-label">Temperatura</span>
+        <input type="range" min="0.4" max="1.8" step="0.1" value="0.8">
+        <output>0.8</output>
+      </label>
+      <div class="llm-prob-list"></div>
+      <div class="demo-formula-box llm-inline-stats"></div>
+    </div>
+  `;
+
+  const slider = wrap.querySelector('input[type="range"]');
+  const output = wrap.querySelector('output');
+  const list = wrap.querySelector('.llm-prob-list');
+  const stats = wrap.querySelector('.llm-inline-stats');
+
+  function render() {
+    const temp = Number(slider.value);
+    output.textContent = temp.toFixed(1);
+    const probs = softmaxFromBase(base.map(item => item.p), temp);
+    list.innerHTML = base.map((item, index) => `
+      <div class="llm-prob-row">
+        <div class="llm-prob-meta">
+          <span>${item.token}</span>
+          <strong>${probs[index].toFixed(1)}%</strong>
+        </div>
+        <div class="llm-prob-track"><div class="llm-prob-fill" style="width:${probs[index]}%"></div></div>
+      </div>
+    `).join('');
+
+    stats.innerHTML = temp < 0.8
+      ? '<p><strong>Leitura:</strong> temperatura baixa concentra probabilidade nos candidatos mais fortes.</p>'
+      : temp > 1.2
+        ? '<p><strong>Leitura:</strong> temperatura alta espalha a distribuição e aumenta a chance de saídas inesperadas.</p>'
+        : '<p><strong>Leitura:</strong> temperaturas intermediárias equilibram previsibilidade e variedade.</p>';
+  }
+
+  slider.addEventListener('input', render);
   render();
 }

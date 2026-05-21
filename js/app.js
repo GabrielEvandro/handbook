@@ -206,6 +206,172 @@ const CONTENT = {
           body: `<p>EM CONSTRUÇÃO 🚧</p>`
         },
         {
+          title: 'Como as LLMs funcionam',
+          body: `<h1><strong>Como os LLMs Funcionam</strong></h1>
+        <p>LLM significa <strong>Large Language Model</strong>. Na prática, é uma IA treinada para transformar linguagem em matemática e, a partir disso, <strong>prever qual token vem em seguida</strong>.</p>
+        <div class="llm-summary-grid">
+          <div class="llm-summary-card">
+            <span class="llm-summary-kicker">Ideia central</span>
+            <p>Ler contexto, calcular probabilidades e gerar a próxima parte da resposta.</p>
+          </div>
+          <div class="llm-summary-card">
+            <span class="llm-summary-kicker">Matéria-prima</span>
+            <p>Bilhões de tokens vindos de livros, artigos, código, diálogos e documentos.</p>
+          </div>
+          <div class="llm-summary-card">
+            <span class="llm-summary-kicker">Estrutura</span>
+            <p>Redes neurais do tipo <strong>Transformer</strong>, com mecanismo de atenção.</p>
+          </div>
+        </div>
+
+        <h2><strong>1. A ideia principal: prever o próximo token</strong></h2>
+        <p>Quando você digita <code>"O céu é..."</code>, o modelo não procura uma frase decorada. Ele compara esse contexto com padrões que aprendeu e calcula algo como:</p>
+        <ul>
+          <li><strong>azul</strong> → alta probabilidade</li>
+          <li>bonito → média probabilidade</li>
+          <li>infinito → menor probabilidade</li>
+        </ul>
+        <p>Depois ele escolhe um candidato e repete o processo. A resposta nasce <strong>token por token</strong>.</p>
+
+        <div class="llm-demo" data-demo="llm-next-token"></div>
+
+        <h2><strong>2. O que é um token?</strong></h2>
+        <p>LLMs não enxergam palavras exatamente como nós. Eles quebram o texto em pedaços menores chamados <strong>tokens</strong>. Um token pode ser uma palavra inteira, um pedaço de palavra, pontuação ou até espaço.</p>
+        <p>Exemplo:</p>
+        <pre class="code-block">"Inteligência Artificial" → ["Intelig", "ência", " Artificial"]</pre>
+        <p>É com tokens que o modelo lê, pensa matematicamente e responde.</p>
+
+        <div class="llm-demo" data-demo="llm-tokenizer"></div>
+
+        <h2><strong>3. Como o modelo aprende?</strong></h2>
+        <p>O treinamento principal chama-se <strong>pré-treinamento</strong>. O exercício é simples de descrever e enorme de executar:</p>
+        <div class="tip-box"><strong>Objetivo do treino</strong>Tentar prever o próximo token milhões e bilhões de vezes, ajustando os pesos internos sempre que errar.</div>
+        <p>Depois de repetir isso em escala gigantesca, o modelo aprende:</p>
+        <ul>
+          <li>gramática e estilo</li>
+          <li>relações entre conceitos</li>
+          <li>estrutura de textos e código</li>
+          <li>padrões de pergunta e resposta</li>
+          <li>regularidades que parecem raciocínio textual</li>
+        </ul>
+
+        <h2><strong>4. Onde esse aprendizado fica guardado?</strong></h2>
+        <p>Ele fica espalhado em <strong>parâmetros</strong>, que são números ajustáveis dentro da rede neural. Pense neles como botões matemáticos que definem o comportamento do modelo.</p>
+        <table class="content-table">
+          <thead>
+            <tr>
+              <th>Escala</th>
+              <th>Ordem de grandeza</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Pequeno</td>
+              <td>milhões de parâmetros</td>
+            </tr>
+            <tr>
+              <td>Médio</td>
+              <td>bilhões de parâmetros</td>
+            </tr>
+            <tr>
+              <td>Grande</td>
+              <td>dezenas ou centenas de bilhões</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>Mais parâmetros geralmente significam <strong>mais capacidade de representar nuances</strong>, mas também mais custo computacional.</p>
+
+        <h2><strong>5. Embeddings: como palavras viram números</strong></h2>
+        <p>Antes de raciocinar sobre texto, o modelo converte tokens em vetores numéricos chamados <strong>embeddings</strong>. Nessa representação, termos parecidos tendem a ficar próximos.</p>
+        <p>É por isso que o modelo consegue capturar relações como:</p>
+        <ul>
+          <li><code>rei</code> próximo de <code>rainha</code></li>
+          <li><code>gato</code> próximo de <code>cachorro</code></li>
+          <li><code>Python</code> próximo de <code>código</code></li>
+        </ul>
+
+        <div class="llm-demo" data-demo="llm-embeddings"></div>
+
+        <h2><strong>6. O que torna os LLMs modernos tão fortes?</strong></h2>
+        <p>O salto veio com a arquitetura <strong>Transformer</strong>, apresentada pelo Google em 2017 no artigo <em>Attention Is All You Need</em>. O ponto central dela é o mecanismo de <strong>attention</strong>.</p>
+
+        <h2><strong>7. O que é attention?</strong></h2>
+        <p>Attention permite que o modelo meça <strong>quais partes do contexto importam mais para entender cada token</strong>.</p>
+        <p>Na frase <code>"João colocou o livro na mochila porque ela estava pesada."</code>, o modelo precisa inferir a que <code>ela</code> se refere. A atenção ajuda a conectar pronomes, sujeitos, objetos e relações semânticas.</p>
+        <p>Uma boa analogia é imaginar um leitor com marca-texto: ele destaca partes relevantes do texto antes de continuar.</p>
+
+        <div class="llm-demo" data-demo="llm-attention"></div>
+
+        <h2><strong>8. Como a resposta é gerada</strong></h2>
+        <ol>
+          <li>Seu texto entra no prompt.</li>
+          <li>O texto é quebrado em tokens.</li>
+          <li>Cada token vira embedding.</li>
+          <li>O Transformer calcula atenção entre os tokens.</li>
+          <li>O modelo produz probabilidades para o próximo token.</li>
+          <li>Um token é escolhido.</li>
+          <li>Esse token volta para a sequência e o ciclo se repete.</li>
+        </ol>
+        <p>Tudo isso acontece muito rápido, várias vezes por segundo.</p>
+
+        <h2><strong>9. O modelo “lembra” da conversa?</strong></h2>
+        <p>Não como humanos. O que ele faz é receber um bloco de contexto com a conversa recente, instruções e documentos anexados. Esse bloco cabe dentro de uma <strong>janela de contexto</strong>.</p>
+        <p>Quando a janela enche, o sistema precisa resumir, cortar ou descartar partes antigas.</p>
+
+        <div class="llm-demo" data-demo="llm-context"></div>
+
+        <h2><strong>10. O que é temperatura?</strong></h2>
+        <p><strong>Temperatura</strong> controla o quanto a escolha do próximo token será conservadora ou criativa.</p>
+        <ul>
+          <li>temperatura baixa → respostas mais previsíveis</li>
+          <li>temperatura alta → respostas mais variadas</li>
+        </ul>
+        <p>Ela não muda o conhecimento do modelo. Ela muda <strong>como o modelo escolhe entre possibilidades</strong>.</p>
+
+        <div class="llm-demo" data-demo="llm-temperature"></div>
+
+        <h2><strong>11. Pré-treinamento não é o fim</strong></h2>
+        <p>Depois do pré-treinamento, muitos modelos passam por etapas adicionais:</p>
+        <ul>
+          <li><strong>instruction tuning</strong>: aprender a seguir instruções</li>
+          <li><strong>alinhamento</strong>: reduzir respostas perigosas ou inúteis</li>
+          <li><strong>RLHF ou técnicas similares</strong>: ajustar respostas com base em preferências humanas</li>
+          <li><strong>fine-tuning</strong>: especializar o modelo em um domínio</li>
+        </ul>
+        <p>É isso que ajuda um LLM bruto a virar um assistente conversacional útil.</p>
+
+        <h2><strong>12. Por que eles parecem inteligentes?</strong></h2>
+        <p>Porque a linguagem humana carrega muito conhecimento. Ao aprender padrões de linguagem, o modelo acaba absorvendo relações sobre ciência, história, matemática, programação e comportamento textual.</p>
+        <p>Isso gera a sensação de entendimento profundo, mesmo que o mecanismo interno continue sendo essencialmente estatístico.</p>
+
+        <h2><strong>13. O que eles fazem muito bem</strong></h2>
+        <ul>
+          <li>reconhecem padrões</li>
+          <li>mantêm coerência local</li>
+          <li>resumem e reescrevem</li>
+          <li>traduzem e classificam</li>
+          <li>geram texto, código e explicações</li>
+        </ul>
+
+        <h2><strong>14. O que eles não fazem como humanos</strong></h2>
+        <ul>
+          <li>não possuem consciência</li>
+          <li>não entendem o mundo exatamente como pessoas</li>
+          <li>não têm memória biográfica própria</li>
+          <li>não garantem verdade factual em toda resposta</li>
+        </ul>
+
+        <h2><strong>15. Por que acontecem alucinações?</strong></h2>
+        <p>O modelo é treinado para gerar <strong>continuações plausíveis</strong>, não para garantir verdade absoluta. Se o contexto estiver fraco, ambíguo ou incompleto, ele pode produzir algo convincente e errado.</p>
+        <div class="tip-box"><strong>Regra prática</strong>Quanto maior a exigência de precisão, mais importante é usar contexto confiável, validação externa, RAG, ferramentas e checagem humana.</div>
+
+        <h2><strong>16. E multimodalidade?</strong></h2>
+        <p>Modelos modernos também conseguem processar imagens, áudio, vídeo e documentos. O princípio é parecido: converter essas entradas em representações numéricas compatíveis com o modelo para que ele encontre padrões e responda sobre elas.</p>
+
+        <h2><strong>17. Resumo em uma linha</strong></h2>
+        <p>Um LLM é uma máquina gigantesca de padrões que <strong>transforma linguagem em números, usa atenção para interpretar contexto e gera resposta prevendo o próximo token</strong>.</p>`
+        },
+        {
           title: 'Tokens e Context Window',
           body: `<p>EM CONSTRUÇÃO 🚧</p>`
         },
@@ -335,11 +501,13 @@ function renderAccordion(containerId, topics) {
           }
         }));
         initStatsDemos(item);
+        initLLMDemos(item);
       }
     });
   });
 
   initStatsDemos(container);
+  initLLMDemos(container);
 }
 
 function refreshStatsTopics() {
