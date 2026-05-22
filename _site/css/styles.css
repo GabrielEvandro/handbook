@@ -880,6 +880,41 @@ body {
   line-height: 1.7;
 }
 
+.about-links {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.btn-linkedin {
+  background: rgba(34, 211, 238, 0.06);
+  color: var(--cyan);
+  border: 1px solid rgba(34, 211, 238, 0.2);
+  font-size: 0.85rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--radius);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+
+.btn-linkedin:hover {
+  background: var(--gradient);
+  color: #06080f;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(34, 211, 238, 0.25);
+}
+
+.btn-linkedin svg {
+  stroke: currentColor;
+  fill: none;
+}
+
 .certs-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -1575,12 +1610,15 @@ mark.search-hit {
 
   .about-company { justify-content: center; }
   .about-bio { margin: 0 auto; }
+  .about-links { justify-content: center; }
   .page-header { flex-direction: column; align-items: flex-start; }
 }
 
 @media (max-width: 480px) {
   .hero-actions { flex-direction: column; }
   .hero-actions .btn { width: 100%; justify-content: center; }
+  .about-links { flex-direction: column; }
+  .about-links .btn { width: 100%; justify-content: center; }
   .sub-tabs, .level-tabs { gap: 0.35rem; }
   .sub-tab, .level-tab {
     padding: 0.45rem 0.85rem;
