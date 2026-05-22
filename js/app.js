@@ -203,7 +203,52 @@ const CONTENT = {
       basico: [
         {
           title: 'O que é IA Generativa?',
-          body: `<p>EM CONSTRUÇÃO 🚧</p>`
+          body: `<h1><strong>O que é IA Generativa?</strong></h1>
+        <p>De forma simples, a <strong>Inteligência Artificial Generativa (GenAI)</strong> é uma vertente da IA focada em <strong>criar novos conteúdos originais</strong>, em vez de apenas analisar, classificar ou filtrar dados já existentes.</p>
+        <p>Ela é capaz de gerar textos, imagens, músicas, códigos de programação, áudios e vídeos inéditos que se assemelham a criações humanas.</p>
+
+        <div class="tip-box">
+          <strong>💡 A Grande Diferença: Analisar vs. Criar</strong>
+          <p>Enquanto a IA tradicional atua como um <strong>detetive ou classificador</strong> (ex.: identificar se há um gato em uma foto ou prever se o preço de uma ação vai subir), a IA Generativa atua como um <strong>artista ou escritor</strong> (ex.: desenhar um gato astronauta do zero ou escrever um poema inédito).</p>
+        </div>
+
+        <h2><strong>A Analogia do "Chef de Cozinha"</strong></h2>
+        <p>Para entender como a IA Generativa cria coisas inéditas sem simplesmente "copiar e colar" da internet, imagine um <strong>Chef de Cozinha com memória fotográfica</strong>:</p>
+        <ul>
+          <li>Ele nunca comeu uma feijoada, mas leu 10.000 receitas diferentes de feijoada e analisou fotos de pratos dos melhores restaurantes.</li>
+          <li>Com isso, ele não memorizou uma única receita específica. Ele aprendeu os <strong>padrões profundos</strong> da feijoada: sabe quais ingredientes combinam, a proporção ideal de sal, o tempo médio de cozimento e quais acompanhamentos fazem sentido.</li>
+          <li>Quando você pede a ele <em>"crie uma feijoada inédita com um toque contemporâneo"</em>, ele combina todos esses padrões aprendidos para criar um prato <strong>completamente novo</strong>.</li>
+        </ul>
+        <p>A IA Generativa faz a mesma coisa: ela analisa bilhões de exemplos de textos, imagens ou códigos criados por humanos para compreender suas estruturas e regras, permitindo que crie novos conteúdos sob demanda.</p>
+
+        <h2><strong>Principais Exemplos e Aplicações no Dia a Dia</strong></h2>
+        <div class="llm-summary-grid">
+          <div class="llm-summary-card">
+            <span class="llm-summary-kicker">✍️ Geração de Texto</span>
+            <p>Responder dúvidas complexas, escrever e-mails profissionais, resumir artigos, criar roteiros ou traduzir idiomas respeitando o contexto. Exemplo: <strong>ChatGPT, Claude, Gemini</strong>.</p>
+          </div>
+          <div class="llm-summary-card">
+            <span class="llm-summary-kicker">🎨 Geração de Imagens</span>
+            <p>Criar ilustrações digitais, designs de produtos ou fotos ultrarrealistas a partir de descrições textuais (prompts). Exemplo: <strong>Midjourney, DALL-E 3, Stable Diffusion</strong>.</p>
+          </div>
+          <div class="llm-summary-card">
+            <span class="llm-summary-kicker">💻 Escrita de Código</span>
+            <p>Ajudar programadores escrevendo trechos de código inteiros, identificando erros de sintaxe ou explicando o funcionamento de sistemas complexos. Exemplo: <strong>GitHub Copilot</strong>.</p>
+          </div>
+        </div>
+
+        <h2><strong>Como ela consegue parecer tão "criativa"?</strong></h2>
+        <p>A base da IA Generativa moderna são os modelos de Deep Learning (como redes neurais Transformer). O processo funciona assim:</p>
+        <ol>
+          <li><strong>Treinamento Massivo:</strong> O modelo "lê" volumes monumentais de dados públicos (livros, artigos, códigos, imagens).</li>
+          <li><strong>Cálculo de Probabilidades:</strong> Ao gerar texto, por exemplo, o modelo não está "pensando" como nós. Ele analisa o que você escreveu e calcula, palavra por palavra, qual é o próximo termo estatisticamente mais provável de continuar a sua ideia com coerência.</li>
+          <li><strong>Refinamento Humano:</strong> Para evitar respostas perigosas ou sem sentido, especialistas humanos guiam o modelo ensinando o que são respostas úteis, seguras e educadas.</li>
+        </ol>
+
+        <div class="tip-box">
+          <strong>⚠️ Importante: O Estagiário Brilhante (e Confiante)</strong>
+          <p>Trate a IA Generativa como um <strong>estagiário incrivelmente inteligente e rápido, mas que às vezes é excessivamente confiante</strong>. Como ela trabalha prevendo o que parece mais plausível e coerente (e não necessariamente o que é a verdade factual absoluta), ela pode inventar fatos, referências ou dados com total convicção. Esse fenômeno é chamado de <strong>alucinação</strong>. Sempre revise informações importantes!</p>
+        </div>`
         },
         {
           title: 'Como as LLMs funcionam',
