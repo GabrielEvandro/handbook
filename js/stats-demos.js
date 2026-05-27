@@ -1,176 +1,3 @@
-
-const T_DEMOS = {
-  'pt-br': {
-    mediaHint: 'Arraste os sliders. Adicione um valor extremo e veja a média ser "puxada" para cima ou para baixo.',
-    valorA: 'Valor A', valorB: 'Valor B', valorC: 'Valor C', valorD: 'Valor D',
-    outlier: 'Outlier', incluirOutlier: 'Incluir outlier', soma: 'Soma',
-    qtd: 'Quantidade (n)', media: 'Média',
-    passo1: 'Passo 1: valores embaralhados — ordene para achar o centro',
-    passo2: 'Passo 2: ordenado — o centro é a mediana',
-    ordenarVal: 'Ordenar valores →', resetar: 'Resetar',
-    valorX: 'Valor ', addValor: '+ Adicionar valor', remValor: '− Remover último',
-    mediana: 'Mediana', impar: 'ímpar', par: 'par', meio: 'meio',
-    posicao: 'posição', mediaCentrais: 'média dos dois valores centrais',
-    repeticoes: 'Repetições', exProvas: 'Exemplo: notas de prova',
-    aparece: 'aparece', vezes: '×', nenhumVal: 'nenhum valor',
-    definaPeloMenos: 'Defina pelo menos um valor com repetições > 0.',
-    semModa: 'Sem moda única', empatam: 'todos os valores ativos empatam na frequência.',
-    moda: 'Moda', maiorFreq: 'maior frequência',
-    multimodal: 'Distribuição multimodal: modas =', conjExp: 'Conjunto expandido',
-    modaHint: 'Ajuste os valores: quando dois ou mais empatarem na contagem, você pode ter mais de uma moda — ou nenhuma, se todos aparecerem igualmente.',
-    llmTokenizerH: 'Tokenizer Playground',
-    llmTokenizerP: 'Digite uma frase e veja como um texto longo pode ser quebrado em partes menores.',
-    llmTokGen: 'Tokens gerados',
-    llmTokIdea: 'Ideia principal: o modelo lê pedaços de texto, não necessariamente palavras completas.',
-    llmNextH: 'Predict Next Token',
-    llmNextP: 'Escolha um contexto e veja como o modelo distribui probabilidade entre possíveis continuações.',
-    llmNextBtn: 'Gerar próximo token',
-    llmNextClick: 'Clique em <strong>Gerar próximo token</strong> para simular a escolha.',
-    contexto: 'Contexto',
-    tokenEsc: 'Token escolhido',
-    llmNextDesc: 'O modelo não recupera uma resposta pronta: ele escolhe uma continuação plausível e continua o processo a partir dela.',
-    llmEmbH: 'Embeddings Visualizer',
-    llmEmbP: 'Escolha um concepto e veja vizinhos semânticos próximos no espaço vetorial.',
-    llmEmbL1: 'Leitura intuitiva: embeddings aproximam tokens que aparecem em contextos parecidos.',
-    llmEmbL2: 'Importante: proximidade vetorial não é “entendimento humano”, mas ajuda o modelo a generalizar relações.',
-    llmAttH: 'Attention Visualizer',
-    llmAttP: 'Clique em uma palavra para ver quais outras partes da frase recebem mais atenção.',
-    llmAttL1: 'Leitura: attention não é magia; é um jeito matemático de medir relevância entre partes da sequência.',
-    llmAttL2: 'Exemplo: o pronome', llmAttL3: 'depende de outras palavras para ser interpretado.',
-    llmCtxH: 'Context Window Simulator',
-    llmCtxP: 'Adicione texto e observe a janela de contexto encher. Quando ela passa do limite, as partes mais antigas perdem espaço.',
-    llmCtxUso: 'Uso da janela', llmCtxChar: 'caracteres simulados',
-    llmCtxOk: 'Ainda há espaço para contexto recente.',
-    llmCtxFull: 'Limite atingido: mensagens mais antigas precisam ser resumidas ou descartadas.',
-    llmTempH: 'Temperature Demo',
-    llmTempP: 'Arraste o slider para ver como a distribuição de probabilidade fica mais concentrada ou mais espalhada.',
-    temperatura: 'Temperatura',
-    llmTempL: 'Leitura: temperatura baixa concentra probabilidade nos candidatos mais fortes.',
-    llmTempM: 'Leitura: temperaturas intermediárias equilibram previsibilidade e variedade.',
-    llmTempHgh: 'Leitura: temperatura alta espalha a distribuição e aumenta a chance de saídas inesperadas.',
-    sysMsg: 'Sistema: responda de forma didática.',
-    usrMsg1: 'Usuário: explique transformers.',
-    astMsg1: 'Assistente: transformer usa attention para relacionar tokens.',
-    usrMsg2: 'Usuário: agora compare com RNNs.',
-    astMsg2: 'Assistente: RNNs processam sequências de modo mais serial.',
-    usrPre: 'Usuário: '
-  },
-  'en': {
-    mediaHint: 'Drag the sliders. Add an extreme value and see the mean be "pulled" up or down.',
-    valorA: 'Value A', valorB: 'Value B', valorC: 'Value C', valorD: 'Value D',
-    outlier: 'Outlier', incluirOutlier: 'Include outlier', soma: 'Sum',
-    qtd: 'Count (n)', media: 'Mean',
-    passo1: 'Step 1: shuffled values — sort to find the center',
-    passo2: 'Step 2: sorted — the center is the median',
-    ordenarVal: 'Sort values →', resetar: 'Reset',
-    valorX: 'Value ', addValor: '+ Add value', remValor: '− Remove last',
-    mediana: 'Median', impar: 'odd', par: 'even', meio: 'middle',
-    posicao: 'position', mediaCentrais: 'mean of the two central values',
-    repeticoes: 'Repetitions', exProvas: 'Example: exam scores',
-    aparece: 'appears', vezes: '×', nenhumVal: 'no value',
-    definaPeloMenos: 'Define at least one value with repetitions > 0.',
-    semModa: 'No unique mode', empatam: 'all active values tie in frequency.',
-    moda: 'Mode', maiorFreq: 'highest frequency',
-    multimodal: 'Multimodal distribution: modes =', conjExp: 'Expanded set',
-    modaHint: 'Adjust the values: when two or more tie in count, you can have more than one mode — or none, if all appear equally.',
-    llmTokenizerH: 'Tokenizer Playground',
-    llmTokenizerP: 'Type a sentence and see how long text can be broken down into smaller pieces.',
-    llmTokGen: 'Generated tokens',
-    llmTokIdea: 'Main idea: the model reads pieces of text, not necessarily full words.',
-    llmNextH: 'Predict Next Token',
-    llmNextP: 'Choose a context and see how the model distributes probability among possible continuations.',
-    llmNextBtn: 'Generate next token',
-    llmNextClick: 'Click <strong>Generate next token</strong> to simulate the choice.',
-    contexto: 'Context',
-    tokenEsc: 'Chosen token',
-    llmNextDesc: 'The model doesn\'t retrieve a ready response: it chooses a plausible continuation and continues the process from there.',
-    llmEmbH: 'Embeddings Visualizer',
-    llmEmbP: 'Choose a concept and see nearby semantic neighbors in vector space.',
-    llmEmbL1: 'Intuitive reading: embeddings bring together tokens that appear in similar contexts.',
-    llmEmbL2: 'Important: vector proximity is not "human understanding", but helps the model generalize relations.',
-    llmAttH: 'Attention Visualizer',
-    llmAttP: 'Click a word to see which other parts of the sentence receive more attention.',
-    llmAttL1: 'Reading: attention is not magic; it\'s a mathematical way to measure relevance between parts of the sequence.',
-    llmAttL2: 'Example: the pronoun', llmAttL3: 'depends on other words to be interpreted.',
-    llmCtxH: 'Context Window Simulator',
-    llmCtxP: 'Add text and watch the context window fill up. When it passes the limit, older parts lose space.',
-    llmCtxUso: 'Window usage', llmCtxChar: 'simulated characters',
-    llmCtxOk: 'There is still room for recent context.',
-    llmCtxFull: 'Limit reached: older messages need to be summarized or discarded.',
-    llmTempH: 'Temperature Demo',
-    llmTempP: 'Drag the slider to see how the probability distribution becomes more concentrated or more spread out.',
-    temperatura: 'Temperature',
-    llmTempL: 'Reading: low temperature concentrates probability on the strongest candidates.',
-    llmTempM: 'Reading: intermediate temperatures balance predictability and variety.',
-    llmTempHgh: 'Reading: high temperature spreads the distribution and increases the chance of unexpected outputs.',
-    sysMsg: 'System: respond didactically.',
-    usrMsg1: 'User: explain transformers.',
-    astMsg1: 'Assistant: transformer uses attention to relate tokens.',
-    usrMsg2: 'User: now compare with RNNs.',
-    astMsg2: 'Assistant: RNNs process sequences more serially.',
-    usrPre: 'User: '
-  },
-  'es': {
-    mediaHint: 'Arrastra los deslizadores. Añade un valor extremo y mira cómo la media es "jalada" hacia arriba o hacia abajo.',
-    valorA: 'Valor A', valorB: 'Valor B', valorC: 'Valor C', valorD: 'Valor D',
-    outlier: 'Atípico', incluirOutlier: 'Incluir atípico', soma: 'Suma',
-    qtd: 'Cantidad (n)', media: 'Media',
-    passo1: 'Paso 1: valores desordenados — ordene para hallar el centro',
-    passo2: 'Paso 2: ordenado — el centro es la mediana',
-    ordenarVal: 'Ordenar valores →', resetar: 'Resetear',
-    valorX: 'Valor ', addValor: '+ Añadir valor', remValor: '− Eliminar último',
-    mediana: 'Mediana', impar: 'impar', par: 'par', meio: 'medio',
-    posicao: 'posición', mediaCentrais: 'media de los dos valores centrales',
-    repeticoes: 'Repeticiones', exProvas: 'Ejemplo: notas de examen',
-    aparece: 'aparece', vezes: '×', nenhumVal: 'ningún valor',
-    definaPeloMenos: 'Defina al menos un valor con repeticiones > 0.',
-    semModa: 'Sin moda única', empatam: 'todos los valores activos empatan en frecuencia.',
-    moda: 'Moda', maiorFreq: 'mayor frecuencia',
-    multimodal: 'Distribución multimodal: modas =', conjExp: 'Conjunto expandido',
-    modaHint: 'Ajuste los valores: cuando dos o más empatan en cuenta, puede tener más de una moda — o ninguna, si todos aparecen por igual.',
-    llmTokenizerH: 'Tokenizer Playground',
-    llmTokenizerP: 'Escribe una frase y mira cómo un texto largo puede dividirse en partes más pequeñas.',
-    llmTokGen: 'Tokens generados',
-    llmTokIdea: 'Idea principal: el modelo lee pedazos de texto, no necesariamente palabras completas.',
-    llmNextH: 'Predict Next Token',
-    llmNextP: 'Elige un contexto y mira cómo el modelo distribuye probabilidad entre posibles continuaciones.',
-    llmNextBtn: 'Generar próximo token',
-    llmNextClick: 'Haz clic en <strong>Generar próximo token</strong> para simular la elección.',
-    contexto: 'Contexto',
-    tokenEsc: 'Token elegido',
-    llmNextDesc: 'El modelo no recupera una respuesta lista: elige una continuación plausible y continúa el proceso desde allí.',
-    llmEmbH: 'Embeddings Visualizer',
-    llmEmbP: 'Elige un concepto y ve vecinos semánticos cercanos en el espacio vectorial.',
-    llmEmbL1: 'Lectura intuitiva: embeddings acercan tokens que aparecen en contextos similares.',
-    llmEmbL2: 'Importante: la proximidad vectorial no es "comprensión humana", pero ayuda al modelo a generalizar relaciones.',
-    llmAttH: 'Attention Visualizer',
-    llmAttP: 'Haz clic en una palabra para ver qué otras partes de la frase reciben más atención.',
-    llmAttL1: 'Lectura: attention no es magia; es una forma matemática de medir relevancia entre partes de la secuencia.',
-    llmAttL2: 'Ejemplo: el pronombre', llmAttL3: 'depende de otras palabras para ser interpretado.',
-    llmCtxH: 'Context Window Simulator',
-    llmCtxP: 'Agrega texto y observa cómo se llena la ventana de contexto. Cuando pasa el límite, las partes más antiguas pierden espacio.',
-    llmCtxUso: 'Uso de la ventana', llmCtxChar: 'caracteres simulados',
-    llmCtxOk: 'Aún hay espacio para contexto reciente.',
-    llmCtxFull: 'Límite alcanzado: los mensajes más antiguos deben resumirse o descartarse.',
-    llmTempH: 'Temperature Demo',
-    llmTempP: 'Arrastra el deslizador para ver cómo la distribución de probabilidad se concentra o se dispersa más.',
-    temperatura: 'Temperatura',
-    llmTempL: 'Lectura: temperatura baja concentra probabilidad en los candidatos más fuertes.',
-    llmTempM: 'Lectura: temperaturas intermedias equilibran previsibilidad y variedad.',
-    llmTempHgh: 'Lectura: temperatura alta dispersa la distribución y aumenta la posibilidad de salidas inesperadas.',
-    sysMsg: 'Sistema: responde didácticamente.',
-    usrMsg1: 'Usuario: explica transformers.',
-    astMsg1: 'Asistente: transformer usa attention para relacionar tokens.',
-    usrMsg2: 'Usuario: ahora compara con RNNs.',
-    astMsg2: 'Asistente: RNNs procesan secuencias más en serie.',
-    usrPre: 'Usuario: '
-  }
-};
-function getT(key) {
-  const lang = window.i18n ? window.i18n.getCurrentLang() : 'pt-br';
-  return T_DEMOS[lang]?.[key] || T_DEMOS['pt-br'][key];
-}
-
 /**
  * Demos interativos — Média, Mediana e Moda
  */
@@ -214,9 +41,8 @@ function initLLMDemos(root = document) {
 
 /* —— MÉDIA —— */
 function initMediaDemo(wrap) {
-  document.addEventListener("foundation:language_changed", () => { labels = [getT("valorA"), getT("valorB"), getT("valorC"), getT("valorD"), getT("outlier")]; renderControls(); render(); });
   const defaults = [10, 12, 14, 18];
-  let labels = [getT('valorA'), getT('valorB'), getT('valorC'), getT('valorD'), getT('outlier')];
+  const labels = ['Valor A', 'Valor B', 'Valor C', 'Valor D', 'Outlier'];
 
   wrap.innerHTML = `
     <div class="demo-panel">
@@ -226,7 +52,7 @@ function initMediaDemo(wrap) {
         <div class="demo-mean-line-wrap" id="media-mean-line"></div>
       </div>
       <div class="demo-formula" id="media-formula"></div>
-      <p class="demo-hint">${getT('mediaHint')}</p>
+      <p class="demo-hint">Arraste os sliders. Adicione um valor extremo e veja a média ser "puxada" para cima ou para baixo.</p>
     </div>
   `;
 
@@ -251,7 +77,7 @@ function initMediaDemo(wrap) {
     `).join('') + `
       <label class="demo-toggle-row">
         <input type="checkbox" id="media-outlier-toggle" ${state.outlierOn ? 'checked' : ''}>
-        <span>${getT('incluirOutlier')} (${labels[4]})</span>
+        <span>Incluir outlier (${labels[4]})</span>
       </label>
       <label class="demo-slider-row demo-slider-row--outlier" style="display:${state.outlierOn ? 'flex' : 'none'}">
         <span class="demo-slider-label">${labels[4]}</span>
@@ -303,23 +129,23 @@ function initMediaDemo(wrap) {
         <div class="demo-bar-col">
           <span class="demo-bar-value">${v}</span>
           <div class="demo-bar ${isOutlier ? 'demo-bar--outlier' : ''}" style="height:${h}%"></div>
-          <span class="demo-bar-label">${isOutlier ? getT('outlier') : labels[i] || i + 1}</span>
+          <span class="demo-bar-label">${isOutlier ? 'outlier' : labels[i] || i + 1}</span>
         </div>
       `;
     }).join('');
 
     meanLineEl.innerHTML = `
       <div class="demo-mean-line" style="bottom: calc(${(mean / max) * 100}% + 2.5rem)">
-        <span class="demo-mean-badge">${getT('media')} = ${formatNum(mean)}</span>
+        <span class="demo-mean-badge">Média = ${formatNum(mean)}</span>
       </div>
     `;
 
     const terms = data.join(' + ');
     formulaEl.innerHTML = `
       <div class="demo-formula-box">
-        <p><strong>${getT('soma')}:</strong> ${terms} = <em>${sum}</em></p>
-        <p><strong>${getT('qtd')}:</strong> ${data.length}</p>
-        <p class="demo-formula-highlight"><strong>${getT('media')} = ${getT('soma')} ÷ n = ${sum} ÷ ${data.length} = ${formatNum(mean)}</strong></p>
+        <p><strong>Soma:</strong> ${terms} = <em>${sum}</em></p>
+        <p><strong>Quantidade (n):</strong> ${data.length}</p>
+        <p class="demo-formula-highlight"><strong>Média = Soma ÷ n = ${sum} ÷ ${data.length} = ${formatNum(mean)}</strong></p>
       </div>
     `;
   }
@@ -330,16 +156,15 @@ function initMediaDemo(wrap) {
 
 /* —— MEDIANA —— */
 function initMedianaDemo(wrap) {
-  document.addEventListener("foundation:language_changed", () => { renderControls(); render(); });
   wrap.innerHTML = `
     <div class="demo-panel">
       <div class="demo-controls" id="mediana-controls"></div>
-      <p class="demo-step-label" id="mediana-step">${getT('passo1')}</p>
+      <p class="demo-step-label" id="mediana-step">Passo 1: valores originais</p>
       <div class="demo-viz demo-viz--numberline" id="mediana-viz"></div>
       <div class="demo-formula" id="mediana-formula"></div>
       <div class="demo-btn-row">
-        <button type="button" class="btn btn-ghost btn-sm" id="mediana-sort-btn">${getT('ordenarVal')}</button>
-        <button type="button" class="btn btn-ghost btn-sm" id="mediana-reset-btn">${getT('resetar')}</button>
+        <button type="button" class="btn btn-ghost btn-sm" id="mediana-sort-btn">Ordenar valores →</button>
+        <button type="button" class="btn btn-ghost btn-sm" id="mediana-reset-btn">Resetar</button>
       </div>
     </div>
   `;
@@ -355,13 +180,13 @@ function initMedianaDemo(wrap) {
   function renderControls() {
     controlsEl.innerHTML = state.values.map((v, i) => `
       <label class="demo-slider-row">
-        <span class="demo-slider-label">${getT('valorX')} ${i + 1}</span>
+        <span class="demo-slider-label">Valor ${i + 1}</span>
         <input type="range" min="0" max="50" step="1" value="${v}" data-idx="${i}" ${state.sorted ? 'disabled' : ''}>
         <output>${v}</output>
       </label>
     `).join('') + `
-      <button type="button" class="btn btn-ghost btn-sm" id="mediana-add-btn" ${state.values.length >= 7 ? 'disabled' : ''}>${getT('addValor')}</button>
-      ${state.values.length > 3 ? `<button type="button" class="btn btn-ghost btn-sm" id="mediana-remove-btn">${getT('remValor')}</button>` : ''}
+      <button type="button" class="btn btn-ghost btn-sm" id="mediana-add-btn" ${state.values.length >= 7 ? 'disabled' : ''}>+ Adicionar valor</button>
+      ${state.values.length > 3 ? '<button type="button" class="btn btn-ghost btn-sm" id="mediana-remove-btn">− Remover último</button>' : ''}
     `;
 
     controlsEl.querySelectorAll('input[data-idx]').forEach(sl => {
@@ -417,7 +242,7 @@ function initMedianaDemo(wrap) {
           return `
             <div class="demo-dot-wrap" style="left:${pct}%">
               <div class="demo-dot ${isMed ? 'demo-dot--median' : ''}">${v}</div>
-              ${isMed ? '<span class="demo-dot-tag">' + getT('mediana') + '</span>' : ''}
+              ${isMed ? '<span class="demo-dot-tag">mediana</span>' : ''}
             </div>
           `;
         }).join('')}
@@ -426,21 +251,21 @@ function initMedianaDemo(wrap) {
     `;
 
     stepEl.textContent = state.sorted
-      ? getT('passo2')
-      : getT('passo1');
+      ? 'Passo 2: ordenado — o centro é a mediana'
+      : 'Passo 1: valores embaralhados — ordene para achar o centro';
 
     if (n % 2 === 1) {
       formulaEl.innerHTML = `
         <div class="demo-formula-box">
-          <p><em>n = ${n}</em> (${getT('impar')}) → ${getT('mediana').toLowerCase()} = ${getT('valorX').toLowerCase()} do <strong>${getT('meio')}</strong> = ${getT('posicao')} ${Math.floor(n / 2) + 1}</p>
-          <p class="demo-formula-highlight"><strong>${getT('mediana')} = ${formatNum(median)}</strong></p>
+          <p><em>n = ${n}</em> (ímpar) → mediana = valor do <strong>meio</strong> = posição ${Math.floor(n / 2) + 1}</p>
+          <p class="demo-formula-highlight"><strong>Mediana = ${formatNum(median)}</strong></p>
         </div>
       `;
     } else {
       formulaEl.innerHTML = `
         <div class="demo-formula-box">
-          <p><em>n = ${n}</em> (${getT('par')}) → ${getT('mediaCentrais')}: (${sorted[n / 2 - 1]} + ${sorted[n / 2]}) ÷ 2</p>
-          <p class="demo-formula-highlight"><strong>${getT('mediana')} = ${formatNum(median)}</strong></p>
+          <p><em>n = ${n}</em> (par) → média dos dois valores centrais: (${sorted[n / 2 - 1]} + ${sorted[n / 2]}) ÷ 2</p>
+          <p class="demo-formula-highlight"><strong>Mediana = ${formatNum(median)}</strong></p>
         </div>
       `;
     }
@@ -465,7 +290,6 @@ function initMedianaDemo(wrap) {
 
 /* —— MODA —— */
 function initModaDemo(wrap) {
-  document.addEventListener("foundation:language_changed", () => { renderControls(); render(); });
   wrap.innerHTML = `
     <div class="demo-panel">
       <div class="demo-controls" id="moda-controls"></div>
@@ -473,7 +297,7 @@ function initModaDemo(wrap) {
         <div class="demo-chart demo-chart--freq" id="moda-chart"></div>
       </div>
       <div class="demo-formula" id="moda-formula"></div>
-      <p class="demo-hint">${getT('modaHint')}</p>
+      <p class="demo-hint">Ajuste os valores: quando dois ou mais empatarem na contagem, você pode ter mais de uma moda — ou nenhuma, se todos aparecerem igualmente.</p>
     </div>
   `;
 
@@ -493,18 +317,18 @@ function initModaDemo(wrap) {
     controlsEl.innerHTML = state.buckets.map((b, i) => `
       <div class="demo-freq-row">
         <label class="demo-slider-row">
-          <span class="demo-slider-label">${getT('valorX')} ${i + 1}</span>
+          <span class="demo-slider-label">Valor ${i + 1}</span>
           <input type="range" min="1" max="30" step="1" value="${b.value}" data-bucket="${i}" data-field="value">
           <output>${b.value}</output>
         </label>
         <label class="demo-slider-row demo-slider-row--count">
-          <span class="demo-slider-label">${getT('repeticoes')}</span>
+          <span class="demo-slider-label">Repetições</span>
           <input type="range" min="0" max="8" step="1" value="${b.count}" data-bucket="${i}" data-field="count">
           <output>${b.count}</output>
         </label>
       </div>
     `).join('') + `
-      <button type="button" class="btn btn-ghost btn-sm" id="moda-preset-btn">${getT('exProvas')}</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="moda-preset-btn">Exemplo: notas de prova</button>
     `;
 
     controlsEl.querySelectorAll('input[data-bucket]').forEach(sl => {
@@ -543,28 +367,28 @@ function initModaDemo(wrap) {
           <span class="demo-bar-value">${b.count > 0 ? b.count + '×' : '—'}</span>
           <div class="demo-bar demo-bar--freq ${isMode ? 'demo-bar--mode' : ''} ${b.count === 0 ? 'demo-bar--empty' : ''}" style="height:${h}%"></div>
           <span class="demo-bar-label">${b.value}</span>
-          ${isMode ? '<span class="demo-mode-star">' + getT('moda') + '</span>' : ''}
+          ${isMode ? '<span class="demo-mode-star">moda</span>' : ''}
         </div>
       `;
     }).join('');
 
     const expanded = active.flatMap(b => Array(b.count).fill(b.value));
-    const freqText = active.map(b => `${b.value} ${getT('aparece')} ${b.count}${getT('vezes')}`).join(' · ') || getT('nenhumVal');
+    const freqText = active.map(b => `${b.value} aparece ${b.count}×`).join(' · ') || 'nenhum valor';
 
     let modeText;
     if (active.length === 0) {
-      modeText = getT('definaPeloMenos');
+      modeText = 'Defina pelo menos um valor com repetições &gt; 0.';
     } else if (active.length > 1 && active.every(b => b.count === maxCount)) {
-      modeText = `<strong>${getT('semModa')}</strong> — ${getT('empatam')}`;
+      modeText = '<strong>Sem moda única</strong> — todos os valores ativos empatam na frequência.';
     } else if (modes.length === 1) {
-      modeText = `<strong>${getT('moda')} = ${modes[0]}</strong> (${getT('maiorFreq')}: ${maxCount})`;
+      modeText = `<strong>Moda = ${modes[0]}</strong> (maior frequência: ${maxCount})`;
     } else {
-      modeText = `<strong>${getT('multimodal')}</strong> ${modes.join(', ')}`;  
+      modeText = `<strong>Distribuição multimodal:</strong> modas = ${modes.join(', ')}`;
     }
 
     formulaEl.innerHTML = `
       <div class="demo-formula-box">
-        <p><strong>${getT('conjExp')}:</strong> [${expanded.join(', ') || '—'}]</p>
+        <p><strong>Conjunto expandido:</strong> [${expanded.join(', ') || '—'}]</p>
         <p>${freqText}</p>
         <p class="demo-formula-highlight">${modeText}</p>
       </div>
@@ -603,14 +427,13 @@ function softmaxFromBase(base, temperature) {
 }
 
 function initLlmTokenizerDemo(wrap) {
-  document.addEventListener("foundation:language_changed", () => { render(); });
   const sample = 'Inteligência Artificial aprende padrões em textos, códigos e conversas.';
 
   wrap.innerHTML = `
     <div class="demo-panel llm-demo-panel">
       <div class="llm-demo-head">
-        <h3>${getT('llmTokenizerH')}</h3>
-        <p>${getT('llmTokenizerP')}</p>
+        <h3>Tokenizer Playground</h3>
+        <p>Digite uma frase e veja como um texto longo pode ser quebrado em partes menores.</p>
       </div>
       <textarea class="llm-textarea" rows="3">${sample}</textarea>
       <div class="llm-token-strip"></div>
@@ -630,8 +453,8 @@ function initLlmTokenizerDemo(wrap) {
       return `<span class="${cls}">${printable}</span>`;
     }).join('');
     stats.innerHTML = `
-      <p><strong>${getT('llmTokGen')}:</strong> ${tokens.length}</p>
-      <p><strong>${getT('llmTokIdea')}</p>
+      <p><strong>Tokens gerados:</strong> ${tokens.length}</p>
+      <p><strong>Ideia principal:</strong> o modelo lê pedaços de texto, não necessariamente palavras completas.</p>
     `;
   }
 
@@ -640,7 +463,6 @@ function initLlmTokenizerDemo(wrap) {
 }
 
 function initLlmNextTokenDemo(wrap) {
-  document.addEventListener("foundation:language_changed", () => { render(); });
   const presets = {
     'O céu é': [
       { token: 'azul', p: 0.48 },
@@ -665,14 +487,14 @@ function initLlmNextTokenDemo(wrap) {
   wrap.innerHTML = `
     <div class="demo-panel llm-demo-panel">
       <div class="llm-demo-head">
-        <h3>${getT('llmNextH')}</h3>
-        <p>${getT('llmNextP')}</p>
+        <h3>Predict Next Token</h3>
+        <p>Escolha um contexto e veja como o modelo distribui probabilidade entre possíveis continuações.</p>
       </div>
       <div class="demo-btn-row llm-preset-row"></div>
       <div class="llm-next-context"></div>
       <div class="llm-prob-list"></div>
       <div class="demo-btn-row">
-        <button type="button" class="btn btn-ghost btn-sm llm-generate-btn">${getT('llmNextBtn')}</button>
+        <button type="button" class="btn btn-ghost btn-sm llm-generate-btn">Gerar próximo token</button>
       </div>
       <div class="demo-formula-box llm-generation-result"></div>
     </div>
@@ -700,7 +522,7 @@ function initLlmNextTokenDemo(wrap) {
     presetRow.innerHTML = Object.keys(presets).map(key => `
       <button type="button" class="btn btn-ghost btn-sm ${key === currentKey ? 'llm-chip-active' : ''}" data-key="${key}">${key}</button>
     `).join('');
-    contextEl.innerHTML = `<p><strong>${getT('contexto')}:</strong> ${currentKey}<span class="llm-cursor">|</span></p>`;
+    contextEl.innerHTML = `<p><strong>Contexto:</strong> ${currentKey}<span class="llm-cursor">|</span></p>`;
     probList.innerHTML = presets[currentKey].map(item => `
       <div class="llm-prob-row">
         <div class="llm-prob-meta">
@@ -710,7 +532,7 @@ function initLlmNextTokenDemo(wrap) {
         <div class="llm-prob-track"><div class="llm-prob-fill" style="width:${item.p * 100}%"></div></div>
       </div>
     `).join('');
-    resultEl.innerHTML = `<p>${getT('llmNextClick')}</p>`;
+    resultEl.innerHTML = '<p>Clique em <strong>Gerar próximo token</strong> para simular a escolha.</p>';
 
     presetRow.querySelectorAll('[data-key]').forEach(el => {
       el.addEventListener('click', () => {
@@ -723,8 +545,8 @@ function initLlmNextTokenDemo(wrap) {
   button.addEventListener('click', () => {
     const picked = weightedPick(presets[currentKey]);
     resultEl.innerHTML = `
-      <p><strong>${getT('tokenEsc')}:</strong> ${picked.token}</p>
-      <p>${getT('llmNextDesc')}</p>
+      <p><strong>Token escolhido:</strong> ${picked.token}</p>
+      <p>O modelo não recupera uma resposta pronta: ele escolhe uma continuação plausível e continua o processo a partir dela.</p>
     `;
   });
 
@@ -732,7 +554,6 @@ function initLlmNextTokenDemo(wrap) {
 }
 
 function initLlmEmbeddingsDemo(wrap) {
-  document.addEventListener("foundation:language_changed", () => { render(); });
   const groups = {
     rei: ['rainha', 'príncipe', 'monarca', 'trono'],
     gato: ['cachorro', 'felino', 'animal', 'pet'],
@@ -743,8 +564,8 @@ function initLlmEmbeddingsDemo(wrap) {
   wrap.innerHTML = `
     <div class="demo-panel llm-demo-panel">
       <div class="llm-demo-head">
-        <h3>${getT('llmEmbH')}</h3>
-        <p>${getT('llmEmbP')}</p>
+        <h3>Embeddings Visualizer</h3>
+        <p>Escolha um conceito e veja vizinhos semânticos próximos no espaço vetorial.</p>
       </div>
       <div class="demo-btn-row llm-embedding-buttons"></div>
       <div class="llm-embedding-cloud"></div>
@@ -770,8 +591,8 @@ function initLlmEmbeddingsDemo(wrap) {
       `).join('')}
     `;
     stats.innerHTML = `
-      <p><strong>${getT('llmEmbL1')}</p>
-      <p><strong>${getT('llmEmbL2')}</p>
+      <p><strong>Leitura intuitiva:</strong> embeddings aproximam tokens que aparecem em contextos parecidos.</p>
+      <p><strong>Importante:</strong> proximidade vetorial não é “entendimento humano”, mas ajuda o modelo a generalizar relações.</p>
     `;
 
     buttons.querySelectorAll('[data-word]').forEach(el => {
@@ -786,7 +607,6 @@ function initLlmEmbeddingsDemo(wrap) {
 }
 
 function initLlmAttentionDemo(wrap) {
-  document.addEventListener("foundation:language_changed", () => { render(); });
   const tokens = ['O', 'gato', 'dormiu', 'no', 'sofá', 'porque', 'ele', 'estava', 'cansado'];
   const links = {
     gato: [
@@ -809,8 +629,8 @@ function initLlmAttentionDemo(wrap) {
   wrap.innerHTML = `
     <div class="demo-panel llm-demo-panel">
       <div class="llm-demo-head">
-        <h3>${getT('llmAttH')}</h3>
-        <p>${getT('llmAttP')}</p>
+        <h3>Attention Visualizer</h3>
+        <p>Clique em uma palavra para ver quais outras partes da frase recebem mais atenção.</p>
       </div>
       <div class="llm-attention-sentence"></div>
       <div class="llm-attention-links"></div>
@@ -840,8 +660,8 @@ function initLlmAttentionDemo(wrap) {
     `).join('');
 
     stats.innerHTML = `
-      <p><strong>${getT('llmAttL1')}</p>
-      <p><strong>${getT('llmAttL2')} <code>${current}</code> ${getT('llmAttL3')}</p>
+      <p><strong>Leitura:</strong> attention não é magia; é um jeito matemático de medir relevância entre partes da sequência.</p>
+      <p><strong>Exemplo:</strong> o pronome <code>${current}</code> depende de outras palavras para ser interpretado.</p>
     `;
 
     sentence.querySelectorAll('[data-token]').forEach(el => {
@@ -856,13 +676,21 @@ function initLlmAttentionDemo(wrap) {
 }
 
 function initLlmContextDemo(wrap) {
+  const baseMessages = [
+    'Sistema: responda de forma didática.',
+    'Usuário: explique transformers.',
+    'Assistente: transformer usa attention para relacionar tokens.',
+    'Usuário: agora compare com RNNs.',
+    'Assistente: RNNs processam sequências de modo mais serial.'
+  ];
+
   wrap.innerHTML = `
     <div class="demo-panel llm-demo-panel">
       <div class="llm-demo-head">
-        <h3>${getT('llmCtxH')}</h3>
-        <p>${getT('llmCtxP')}</p>
+        <h3>Context Window Simulator</h3>
+        <p>Adicione texto e observe a janela de contexto encher. Quando ela passa do limite, as partes mais antigas perdem espaço.</p>
       </div>
-      <textarea class="llm-textarea" rows="4" placeholder="..."></textarea>
+      <textarea class="llm-textarea" rows="4" placeholder="Digite mais contexto para a conversa..."></textarea>
       <div class="llm-context-bar"><div class="llm-context-fill"></div></div>
       <div class="llm-context-meta"></div>
       <div class="llm-context-list"></div>
@@ -875,22 +703,9 @@ function initLlmContextDemo(wrap) {
   const list = wrap.querySelector('.llm-context-list');
   const limit = 220;
 
-  function getBaseMessages() {
-    return [
-      getT('sysMsg'),
-      getT('usrMsg1'),
-      getT('astMsg1'),
-      getT('usrMsg2'),
-      getT('astMsg2')
-    ];
-  }
-
-  document.addEventListener("foundation:language_changed", () => { render(); });
-
   function render() {
     const extra = input.value.trim();
-    const baseMessages = getBaseMessages();
-    const messages = extra ? [...baseMessages, `${getT('usrPre')}${extra}`] : [...baseMessages];
+    const messages = extra ? [...baseMessages, `Usuário: ${extra}`] : [...baseMessages];
     const fullText = messages.join(' ');
     const used = Math.min(fullText.length, limit);
     const pct = Math.min((used / limit) * 100, 100);
@@ -898,8 +713,8 @@ function initLlmContextDemo(wrap) {
     bar.classList.toggle('llm-context-fill--warn', pct > 80);
 
     meta.innerHTML = `
-      <p><strong>${getT('llmCtxUso')}:</strong> ${used}/${limit} ${getT('llmCtxChar')}</p>
-      <p>${pct < 100 ? getT('llmCtxOk') : getT('llmCtxFull')}</p>
+      <p><strong>Uso da janela:</strong> ${used}/${limit} caracteres simulados</p>
+      <p>${pct < 100 ? 'Ainda há espaço para contexto recente.' : 'Limite atingido: mensagens mais antigas precisam ser resumidas ou descartadas.'}</p>
     `;
 
     const overflow = Math.max(fullText.length - limit, 0);
@@ -916,7 +731,6 @@ function initLlmContextDemo(wrap) {
 }
 
 function initLlmTemperatureDemo(wrap) {
-  document.addEventListener("foundation:language_changed", () => { render(); });
   const base = [
     { token: 'clara', p: 0.42 },
     { token: 'útil', p: 0.25 },
@@ -927,11 +741,11 @@ function initLlmTemperatureDemo(wrap) {
   wrap.innerHTML = `
     <div class="demo-panel llm-demo-panel">
       <div class="llm-demo-head">
-        <h3>${getT('llmTempH')}</h3>
-        <p>${getT('llmTempP')}</p>
+        <h3>Temperature Demo</h3>
+        <p>Arraste o slider para ver como a distribuição de probabilidade fica mais concentrada ou mais espalhada.</p>
       </div>
       <label class="demo-slider-row">
-        <span class="demo-slider-label">${getT('temperatura')}</span>
+        <span class="demo-slider-label">Temperatura</span>
         <input type="range" min="0.4" max="1.8" step="0.1" value="0.8">
         <output>0.8</output>
       </label>
@@ -960,10 +774,10 @@ function initLlmTemperatureDemo(wrap) {
     `).join('');
 
     stats.innerHTML = temp < 0.8
-      ? `<p><strong>${getT('llmTempL')}</p>`
+      ? '<p><strong>Leitura:</strong> temperatura baixa concentra probabilidade nos candidatos mais fortes.</p>'
       : temp > 1.2
-        ? `<p><strong>${getT('llmTempHgh')}</p>`
-        : `<p><strong>${getT('llmTempM')}</p>`;
+        ? '<p><strong>Leitura:</strong> temperatura alta espalha a distribuição e aumenta a chance de saídas inesperadas.</p>'
+        : '<p><strong>Leitura:</strong> temperaturas intermediárias equilibram previsibilidade e variedade.</p>';
   }
 
   slider.addEventListener('input', render);
