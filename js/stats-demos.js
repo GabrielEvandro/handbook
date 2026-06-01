@@ -37,7 +37,7 @@ const T_DEMOS = {
     llmAttP: 'Clique em uma palavra para ver quais outras partes da frase recebem mais atenção.',
     llmAttL1: 'Leitura: attention não é magia; é um jeito matemático de medir relevância entre partes da sequência.',
     llmAttL2: 'Exemplo: o pronome', llmAttL3: 'depende de outras palavras para ser interpretado.',
-    llmCtxH: 'Context Window Simulator',
+    llmCtxH: 'Visualizador da janela de contexto',
     llmCtxP: 'Adicione texto e observe a janela de contexto encher. Quando ela passa do limite, as partes mais antigas perdem espaço.',
     llmCtxUso: 'Uso da janela', llmCtxChar: 'caracteres simulados',
     llmCtxOk: 'Ainda há espaço para contexto recente.',
@@ -53,7 +53,19 @@ const T_DEMOS = {
     astMsg1: 'Assistente: transformer usa attention para relacionar tokens.',
     usrMsg2: 'Usuário: agora compare com RNNs.',
     astMsg2: 'Assistente: RNNs processam sequências de modo mais serial.',
-    usrPre: 'Usuário: '
+    usrPre: 'Usuário: ',
+    pyVarTitle: 'Playground: Variáveis e Tipos',
+    pyVarHint: 'Digite um valor e veja o tipo detectado pelo Python.',
+    pyVarName: 'Nome da variável',
+    pyVarValue: 'Valor',
+    pyVarAssign: 'Atribuir →',
+    pyVarReset: 'Limpar',
+    pyVarMemory: 'Memória',
+    pyVarOutput: 'Saída',
+    pyVarType: 'Tipo',
+    pyVarTip: '💡 Dica: Python infere o tipo automaticamente — não é necessário declarar.',
+    pyVarErrName: 'Nome inválido (use apenas letras, números e _)',
+    pyVarErrEmpty: 'Digite um valor para a variável.'
   },
   'en': {
     mediaHint: 'Drag the sliders. Add an extreme value and see the mean be "pulled" up or down.',
@@ -92,7 +104,7 @@ const T_DEMOS = {
     llmAttP: 'Click a word to see which other parts of the sentence receive more attention.',
     llmAttL1: 'Reading: attention is not magic; it\'s a mathematical way to measure relevance between parts of the sequence.',
     llmAttL2: 'Example: the pronoun', llmAttL3: 'depends on other words to be interpreted.',
-    llmCtxH: 'Context Window Simulator',
+    llmCtxH: 'Context Window Visualizer',
     llmCtxP: 'Add text and watch the context window fill up. When it passes the limit, older parts lose space.',
     llmCtxUso: 'Window usage', llmCtxChar: 'simulated characters',
     llmCtxOk: 'There is still room for recent context.',
@@ -108,7 +120,19 @@ const T_DEMOS = {
     astMsg1: 'Assistant: transformer uses attention to relate tokens.',
     usrMsg2: 'User: now compare with RNNs.',
     astMsg2: 'Assistant: RNNs process sequences more serially.',
-    usrPre: 'User: '
+    usrPre: 'User: ',
+    pyVarTitle: 'Playground: Variables and Types',
+    pyVarHint: 'Type a value and see the type detected by Python.',
+    pyVarName: 'Variable name',
+    pyVarValue: 'Value',
+    pyVarAssign: 'Assign →',
+    pyVarReset: 'Clear',
+    pyVarMemory: 'Memory',
+    pyVarOutput: 'Output',
+    pyVarType: 'Type',
+    pyVarTip: '💡 Tip: Python infers the type automatically — no need to declare it.',
+    pyVarErrName: 'Invalid name (use only letters, numbers and _)',
+    pyVarErrEmpty: 'Enter a value for the variable.'
   },
   'es': {
     mediaHint: 'Arrastra los deslizadores. Añade un valor extremo y mira cómo la media es "jalada" hacia arriba o hacia abajo.',
@@ -147,7 +171,7 @@ const T_DEMOS = {
     llmAttP: 'Haz clic en una palabra para ver qué otras partes de la frase reciben más atención.',
     llmAttL1: 'Lectura: attention no es magia; es una forma matemática de medir relevancia entre partes de la secuencia.',
     llmAttL2: 'Ejemplo: el pronombre', llmAttL3: 'depende de otras palabras para ser interpretado.',
-    llmCtxH: 'Context Window Simulator',
+    llmCtxH: 'Visualizador de la ventana de contexto',
     llmCtxP: 'Agrega texto y observa cómo se llena la ventana de contexto. Cuando pasa el límite, las partes más antiguas pierden espacio.',
     llmCtxUso: 'Uso de la ventana', llmCtxChar: 'caracteres simulados',
     llmCtxOk: 'Aún hay espacio para contexto reciente.',
@@ -163,7 +187,19 @@ const T_DEMOS = {
     astMsg1: 'Asistente: transformer usa attention para relacionar tokens.',
     usrMsg2: 'Usuario: ahora compara con RNNs.',
     astMsg2: 'Asistente: RNNs procesan secuencias más en serie.',
-    usrPre: 'Usuario: '
+    usrPre: 'Usuario: ',
+    pyVarTitle: 'Playground: Variables y Tipos',
+    pyVarHint: 'Escribe un valor y ve el tipo detectado por Python.',
+    pyVarName: 'Nombre de variable',
+    pyVarValue: 'Valor',
+    pyVarAssign: 'Asignar →',
+    pyVarReset: 'Limpiar',
+    pyVarMemory: 'Memoria',
+    pyVarOutput: 'Salida',
+    pyVarType: 'Tipo',
+    pyVarTip: '💡 Consejo: Python infiere el tipo automáticamente — no es necesario declararlo.',
+    pyVarErrName: 'Nombre inválido (use solo letras, números y _)',
+    pyVarErrEmpty: 'Ingresa un valor para la variable.'
   }
 };
 function getT(key) {
@@ -188,6 +224,9 @@ function initStatsDemos(root = document) {
   });
   root.querySelectorAll('[data-demo="moda"]').forEach(el => {
     if (!el.querySelector('.demo-panel')) initModaDemo(el);
+  });
+  root.querySelectorAll('[data-demo="py-variables-playground"]').forEach(el => {
+    if (!el.querySelector('.demo-panel')) initPyVariablesDemo(el);
   });
 }
 
@@ -968,4 +1007,133 @@ function initLlmTemperatureDemo(wrap) {
 
   slider.addEventListener('input', render);
   render();
+}
+
+/* —— PYTHON VARIABLES PLAYGROUND —— */
+function initPyVariablesDemo(wrap) {
+  const TYPE_COLORS = {
+    int:      { bg: '#6366f133', border: '#6366f1', label: '#818cf8' },
+    float:    { bg: '#0ea5e933', border: '#0ea5e9', label: '#38bdf8' },
+    bool:     { bg: '#f59e0b33', border: '#f59e0b', label: '#fbbf24' },
+    str:      { bg: '#10b98133', border: '#10b981', label: '#34d399' },
+    NoneType: { bg: '#64748b33', border: '#64748b', label: '#94a3b8' },
+  };
+
+  function inferType(raw) {
+    const t = raw.trim();
+    if (t === 'True' || t === 'False') return { type: 'bool',     display: t };
+    if (t === 'None')                   return { type: 'NoneType', display: 'None' };
+    if (/^-?\d+$/.test(t))             return { type: 'int',      display: t };
+    if (/^-?\d*\.\d+$/.test(t))        return { type: 'float',    display: t };
+    const unquoted = t.replace(/^["'](.*)["']$/, '$1');
+    return { type: 'str', display: `"${unquoted}"` };
+  }
+
+  function badge(type) {
+    const c = TYPE_COLORS[type] || TYPE_COLORS['str'];
+    return `<span style="background:${c.bg};border:1px solid ${c.border};color:${c.label};border-radius:6px;padding:2px 10px;font-size:0.78rem;font-family:monospace;font-weight:700;">${type}</span>`;
+  }
+
+  let variables = {};
+
+  function render() {
+    const rows = Object.entries(variables).map(([name, {display, type}]) => `
+      <tr>
+        <td style="padding:6px 10px;font-family:monospace;color:#e2e8f0;">${name}</td>
+        <td style="padding:6px 10px;font-family:monospace;color:#94a3b8;">${display}</td>
+        <td style="padding:6px 10px;">${badge(type)}</td>
+        <td style="padding:6px 10px;text-align:center;">
+          <button class="py-del-btn" data-name="${name}" style="background:none;border:none;cursor:pointer;color:#f87171;font-size:1rem;" aria-label="del ${name}">✕</button>
+        </td>
+      </tr>`).join('');
+
+    const memTable = rows
+      ? `<table style="width:100%;border-collapse:collapse;">
+           <thead><tr style="border-bottom:1px solid #1e293b;">
+             <th style="padding:6px 10px;text-align:left;color:#64748b;font-size:0.75rem;">var</th>
+             <th style="padding:6px 10px;text-align:left;color:#64748b;font-size:0.75rem;">${getT('pyVarValue')}</th>
+             <th style="padding:6px 10px;text-align:left;color:#64748b;font-size:0.75rem;">${getT('pyVarType')}</th>
+             <th></th>
+           </tr></thead>
+           <tbody>${rows}</tbody>
+         </table>`
+      : `<p style="color:#475569;text-align:center;padding:1.2rem 0.5rem;font-size:0.85rem;">${getT('pyVarHint')}</p>`;
+
+    const output = Object.entries(variables).map(([n, {display, type}]) =>
+      `<div><span style="color:#6366f1;">&gt;&gt;&gt; </span><span style="color:#e2e8f0;">${n} = ${display}</span><span style="color:#475569;font-size:0.8rem;"> # ${type}</span></div>`
+    ).join('') || `<span style="color:#475569;"># ${getT('pyVarHint')}</span>`;
+
+    wrap.querySelector('#py-memory').innerHTML = memTable;
+    wrap.querySelector('#py-output').innerHTML  = output;
+
+    wrap.querySelectorAll('.py-del-btn').forEach(btn =>
+      btn.addEventListener('click', () => { delete variables[btn.dataset.name]; render(); })
+    );
+  }
+
+  const saved = { ...variables };
+
+  wrap.innerHTML = `
+    <div class="demo-panel" style="display:flex;flex-direction:column;gap:1.1rem;">
+      <h3 style="margin:0;font-size:1rem;color:#e2e8f0;">${getT('pyVarTitle')}</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr auto auto;gap:0.6rem;align-items:end;">
+        <div>
+          <label style="font-size:0.75rem;color:#94a3b8;display:block;margin-bottom:4px;">${getT('pyVarName')}</label>
+          <input id="py-var-name" type="text" placeholder="nome" style="width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #334155;border-radius:8px;padding:8px 12px;color:#e2e8f0;font-family:monospace;font-size:0.9rem;outline:none;">
+        </div>
+        <div>
+          <label style="font-size:0.75rem;color:#94a3b8;display:block;margin-bottom:4px;">${getT('pyVarValue')}</label>
+          <input id="py-var-value" type="text" placeholder='42 / 3.14 / "texto" / True' style="width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #334155;border-radius:8px;padding:8px 12px;color:#e2e8f0;font-family:monospace;font-size:0.9rem;outline:none;">
+        </div>
+        <button id="py-assign-btn" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:8px;padding:9px 18px;cursor:pointer;font-weight:600;font-size:0.9rem;white-space:nowrap;">${getT('pyVarAssign')}</button>
+        <button id="py-reset-btn" style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:8px;padding:9px 14px;cursor:pointer;font-size:0.85rem;">${getT('pyVarReset')}</button>
+      </div>
+      <div id="py-error" style="color:#f87171;font-size:0.83rem;min-height:16px;"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div>
+          <div style="font-size:0.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#64748b;margin-bottom:6px;">${getT('pyVarMemory')}</div>
+          <div id="py-memory" style="background:#0f172a;border:1px solid #1e293b;border-radius:10px;min-height:72px;overflow:auto;"></div>
+        </div>
+        <div>
+          <div style="font-size:0.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#64748b;margin-bottom:6px;">${getT('pyVarOutput')}</div>
+          <div id="py-output" style="background:#0f172a;border:1px solid #1e293b;border-radius:10px;min-height:72px;padding:10px 14px;font-family:monospace;font-size:0.85rem;line-height:1.7;overflow:auto;"></div>
+        </div>
+      </div>
+      <div class="tip-box" style="font-size:0.84rem;">${getT('pyVarTip')}</div>
+    </div>`;
+
+  variables = saved;
+  render();
+
+  const nameInput  = wrap.querySelector('#py-var-name');
+  const valueInput = wrap.querySelector('#py-var-value');
+  const errorEl    = wrap.querySelector('#py-error');
+
+  function assign() {
+    const name  = nameInput.value.trim();
+    const value = valueInput.value.trim();
+    errorEl.textContent = '';
+    if (!name || !/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(name)) {
+      errorEl.textContent = getT('pyVarErrName'); nameInput.focus(); return;
+    }
+    if (!value) {
+      errorEl.textContent = getT('pyVarErrEmpty'); valueInput.focus(); return;
+    }
+    variables[name] = inferType(value);
+    nameInput.value = ''; valueInput.value = ''; nameInput.focus();
+    render();
+  }
+
+  wrap.querySelector('#py-assign-btn').addEventListener('click', assign);
+  wrap.querySelector('#py-reset-btn').addEventListener('click', () => { variables = {}; render(); });
+  [nameInput, valueInput].forEach(inp =>
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') assign(); })
+  );
+
+  document.addEventListener('foundation:language_changed', () => {
+    const state = { ...variables };
+    initPyVariablesDemo(wrap);
+    variables = state;
+    render();
+  }, { once: true });
 }

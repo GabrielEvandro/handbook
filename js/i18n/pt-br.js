@@ -157,7 +157,236 @@ window.i18nData['pt-BR'] = {
         },
         {
           title: 'Variáveis e Tipos',
-          body: `<p>EM CONSTRUÇÃO 🚧</p>`
+          body: `<h1><strong>Variáveis e Tipos em Python</strong></h1>
+          <p>Variáveis e tipos são os blocos de construção fundamentais de qualquer programa. Compreender como armazenar informações e como Python categoriza esses dados é o primeiro passo para dominar a linguagem.</p>
+
+          <div class="level-tabs" role="tablist" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+            <button class="level-tab active" onclick="this.parentElement.querySelectorAll('.level-tab').forEach(t=>t.classList.remove('active')); this.classList.add('active'); const contents=this.parentElement.parentElement.querySelectorAll('.tab-content'); contents.forEach(c=>c.style.display='none'); this.parentElement.parentElement.querySelector('.tab-definicao').style.display='block';">Definição Simples</button>
+            <button class="level-tab" onclick="this.parentElement.querySelectorAll('.level-tab').forEach(t=>t.classList.remove('active')); this.classList.add('active'); const contents=this.parentElement.parentElement.querySelectorAll('.tab-content'); contents.forEach(c=>c.style.display='none'); this.parentElement.parentElement.querySelector('.tab-cotidiano').style.display='block';">Linguagem Cotidiana</button>
+            <button class="level-tab" onclick="this.parentElement.querySelectorAll('.level-tab').forEach(t=>t.classList.remove('active')); this.classList.add('active'); const contents=this.parentElement.parentElement.querySelectorAll('.tab-content'); contents.forEach(c=>c.style.display='none'); this.parentElement.parentElement.querySelector('.tab-analogia').style.display='block';">Analogia Real</button>
+          </div>
+
+          <div class="tab-content tab-definicao">
+            <p><strong>Variáveis</strong> são "caixinhas" virtuais onde guardamos informações na memória do computador para usar depois em um programa.</p>
+            <p><strong>Tipos</strong> são as categorias dessas informações, definindo o que podemos ou não fazer com elas.</p>
+            <div class="tip-box">
+              <strong>💡 Exemplo Intuitivo</strong>
+              <ul>
+                <li>Um nome é um texto (String).</li>
+                <li>Uma idade é um número inteiro (Integer).</li>
+                <li>Uma resposta de sim ou não é um valor lógico (Boolean).</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tab-content tab-cotidiano" style="display:none;">
+            <p>Imagine que você está organizando sua casa e possui gavetas específicas:</p>
+            <ul>
+              <li>Uma gaveta para roupas.</li>
+              <li>Uma gaveta para documentos.</li>
+              <li>Uma gaveta para eletrônicos.</li>
+            </ul>
+            <p>Cada gaveta guarda um tipo específico de objeto para que você os encontre e use corretamente. As variáveis no Python funcionam exatamente assim: elas possuem um <strong>nome</strong> (a etiqueta da gaveta) e um <strong>conteúdo</strong> (o que está guardado dentro).</p>
+            <pre class="code-block">nome = "Gabriel"<br>idade = 30</pre>
+            <p>Aqui, a gaveta <code>nome</code> guarda um texto e a gaveta <code>idade</code> guarda um número inteiro.</p>
+          </div>
+
+          <div class="tab-content tab-analogia" style="display:none;">
+            <p>Pense em um armário organizador com etiquetas claras nas caixas:</p>
+            <table class="content-table">
+              <thead>
+                <tr>
+                  <th>Etiqueta (Variável)</th>
+                  <th>Conteúdo (Valor)</th>
+                  <th>Categoria (Tipo)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>nome</code></td>
+                  <td>"Gabriel"</td>
+                  <td>String (Texto)</td>
+                </tr>
+                <tr>
+                  <td><code>idade</code></td>
+                  <td>30</td>
+                  <td>Integer (Inteiro)</td>
+                </tr>
+                <tr>
+                  <td><code>cidade</code></td>
+                  <td>"São Paulo"</td>
+                  <td>String (Texto)</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>As etiquetas são as variáveis; os conteúdos são os valores armazenados.</p>
+          </div>
+
+          <h2><strong>2. Por que isso existe? Qual problema resolve?</strong></h2>
+          <p>Sem variáveis, precisaríamos repetir informações o tempo todo em nosso código. Imagine um sistema de cadastro sem variáveis:</p>
+          <pre class="code-block">"Gabriel"<br>"Gabriel"<br>"Gabriel"<br>"Gabriel"</pre>
+          <p>Toda vez que o nome do usuário fosse exibido ou verificado, você teria que escrevê-lo manualmente. Com variáveis, criamos um ponto centralizado:</p>
+          <pre class="code-block">nome = "Gabriel"<br>print(nome)  # Reutilize quantas vezes quiser!</pre>
+          
+          <div class="tip-box">
+            <strong>⚠️ O que aconteceria sem elas?</strong>
+            <p>Os programas seriam gigantescos, extremamente difíceis de manter e atualizar (se o nome mudasse, teríamos que procurar em centenas de linhas de código), muito lentos de desenvolver e altamente propensos a erros de digitação.</p>
+          </div>
+
+          <h2><strong>3. Como funciona na prática?</strong></h2>
+          <p>O ciclo de vida de uma variável segue cinco passos lógicos essenciais:</p>
+          <ol>
+            <li><strong>Criar a variável:</strong> Definimos um nome válido (ex: <code>nome = "Gabriel"</code>).</li>
+            <li><strong>Armazenar um valor:</strong> O sinal de igual (<code>=</code>) é o operador de atribuição que joga o valor para dentro da variável.</li>
+            <li><strong>Utilizar o valor:</strong> Chamamos a variável pelo nome (ex: <code>print(nome)</code> resulta em <code>Gabriel</code>).</li>
+            <li><strong>Alterar o valor:</strong> Se atribuirmos um novo valor (ex: <code>idade = 20</code> e depois <code>idade = 21</code>), o valor antigo é substituído na memória.</li>
+            <li><strong>Utilizar em cálculos:</strong> Podemos atualizar uma variável baseando-se no seu valor anterior (ex: <code>idade = idade + 1</code>).</li>
+          </ol>
+
+          <h2><strong>Principais Tipos em Python</strong></h2>
+          <p>Python possui vários tipos de dados embutidos. Veja os mais importantes:</p>
+
+          <div class="llm-summary-grid">
+            <div class="llm-summary-card" style="border-left: 3px solid var(--cyan);">
+              <span class="llm-summary-kicker">str (String)</span>
+              <p>Representa textos de qualquer tamanho. Deve estar sempre entre aspas.</p>
+              <code>nome = "Gabriel"</code>
+            </div>
+            <div class="llm-summary-card" style="border-left: 3px solid var(--blue);">
+              <span class="llm-summary-kicker">int (Integer)</span>
+              <p>Números inteiros, sem nenhuma casa decimal ou vírgula.</p>
+              <code>idade = 30</code>
+            </div>
+            <div class="llm-summary-card" style="border-left: 3px solid var(--violet);">
+              <span class="llm-summary-kicker">float (Decimal)</span>
+              <p>Números com casas decimais (usa-se ponto em vez de vírgula).</p>
+              <code>altura = 1.75</code>
+            </div>
+            <div class="llm-summary-card" style="border-left: 3px solid var(--green);">
+              <span class="llm-summary-kicker">bool (Boolean)</span>
+              <p>Valores lógicos de sim ou não: apenas <code>True</code> ou <code>False</code>.</p>
+              <code>ativo = True</code>
+            </div>
+          </div>
+
+          <div class="tip-box">
+            <strong>📦 E as coleções? Exemplo: List (Lista)</strong>
+            <p>Uma lista guarda vários valores em uma única variável, ordenados e separados por vírgula dentro de colchetes: <code>frutas = ["Maçã", "Banana", "Laranja"]</code>. É como uma caixa com vários compartimentos catalogados!</p>
+          </div>
+
+          <h2><strong>4. Exemplo Prático de Aplicação</strong></h2>
+          <p>Imagine que você está criando um <strong>sistema de cadastro de alunos para uma academia</strong>. Precisamos guardar dados consistentes para cada aluno:</p>
+          <pre class="code-block"># Declaração dos dados do aluno<br>nome = "Gabriel"<br>idade = 30<br>peso = 82.5<br>matricula_ativa = True</pre>
+          <p>Com essas variáveis estruturadas, o sistema pode facilmente exibir um painel personalizado, calcular faixas etárias, gerar relatórios de faturamento e filtrar quem está ativo na academia.</p>
+
+          <h2><strong>5. Visualização Mental e Memória</strong></h2>
+          <p>Visualize a memória do seu computador rodando Python como uma grande estante cheia de gavetas com etiquetas magnéticas:</p>
+          <pre class="code-block" style="color: var(--cyan); font-family: var(--mono); line-height: 1.2;">
+┌─────────────┐   ┌─────────────┐   ┌─────────────┐
+│ nome        │   │ idade       │   │ ativo       │
+├─────────────┤   ├─────────────┤   ├─────────────┤
+│ Gabriel     │   │ 30          │   │ True        │
+└─────────────┘   └─────────────┘   └─────────────┘</pre>
+          <p>Quando seu script diz <code>print(nome)</code>, o interpretador Python vai até a gaveta com a etiqueta <code>nome</code>, puxa a gaveta, pega o conteúdo <code>"Gabriel"</code> e o imprime na tela.</p>
+          <div class="tip-box" style="border-left-color: var(--violet);">
+            <strong>🤔 Pergunta para Reflexão:</strong>
+            <p>Se o nome de um cliente mudar em um cadastro, o que é mais fácil: alterar o valor de uma única variável no topo do código ou procurar e substituir o texto do nome em centenas de linhas separadas do sistema?</p>
+          </div>
+
+          <h2><strong>6. Comparação Direta com o Mundo Real</strong></h2>
+          <table class="content-table">
+            <thead>
+              <tr>
+                <th>Conceito em Python</th>
+                <th>Equivalente na Vida Real</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Variável</strong></td>
+                <td>Caixa etiquetada onde guardamos um objeto.</td>
+              </tr>
+              <tr>
+                <td><strong>Valor</strong></td>
+                <td>O objeto físico guardado dentro da caixa.</td>
+              </tr>
+              <tr>
+                <td><strong>String (Texto)</strong></td>
+                <td>Um papel com um texto escrito à mão.</td>
+              </tr>
+              <tr>
+                <td><strong>Integer (Inteiro)</strong></td>
+                <td>A contagem exata de maçãs em uma cesta.</td>
+              </tr>
+              <tr>
+                <td><strong>Float (Decimal)</strong></td>
+                <td>O peso medido em uma balança de precisão (ex: 82.5 kg).</td>
+              </tr>
+              <tr>
+                <td><strong>Boolean</strong></td>
+                <td>Um interruptor de luz (ligado/desligado ou sim/não).</td>
+              </tr>
+              <tr>
+                <td><strong>List (Lista)</strong></td>
+                <td>Uma caixa organizadora com várias divisórias internas.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2><strong>7. Erros Mais Comuns e Como Evitá-los</strong></h2>
+          
+          <div class="accordion-list">
+            <div class="accordion-item" style="border: 1px solid var(--border);">
+              <div class="accordion-header" onclick="this.parentElement.classList.toggle('open');" style="font-size: 0.9rem; padding: 0.75rem 1rem;">
+                <span>❌ Erro 1: Esquecer aspas em textos (Strings)</span>
+                <span style="font-size: 0.8rem; color: var(--text-dim);">Clique para expandir</span>
+              </div>
+              <div class="accordion-body" style="max-height: 500px; padding: 0 1rem 1rem; color: var(--text-muted); font-size: 0.85rem;">
+                <p style="color: #ef4444; margin-top: 0.5rem;"><strong>Errado:</strong> <code>nome = Gabriel</code></p>
+                <p style="color: var(--green);"><strong>Correto:</strong> <code>nome = "Gabriel"</code></p>
+                <p><strong>Por que acontece?</strong> Sem aspas, o Python acha que <code>Gabriel</code> é o nome de outra variável que deveria ter sido criada antes. Se não encontrar, gera um erro de nome (<code>NameError</code>).</p>
+              </div>
+            </div>
+
+            <div class="accordion-item" style="border: 1px solid var(--border);">
+              <div class="accordion-header" onclick="this.parentElement.classList.toggle('open');" style="font-size: 0.9rem; padding: 0.75rem 1rem;">
+                <span>❌ Erro 2: Misturar texto e número na concatenação</span>
+                <span style="font-size: 0.8rem; color: var(--text-dim);">Clique para expandir</span>
+              </div>
+              <div class="accordion-body" style="max-height: 500px; padding: 0 1rem 1rem; color: var(--text-muted); font-size: 0.85rem;">
+                <p style="color: #ef4444; margin-top: 0.5rem;"><strong>Errado:</strong> <code>print("Idade: " + idade)</code> (causa <code>TypeError</code> se a idade for número)</p>
+                <p style="color: var(--green);"><strong>Correto:</strong> <code>print("Idade:", idade)</code> ou usando f-strings: <code>print(f"Idade: {idade}")</code></p>
+                <p><strong>Por que acontece?</strong> Python é uma linguagem com tipagem forte; ela não permite somar (concatenar) texto com número diretamente sem converter antes.</p>
+              </div>
+            </div>
+
+            <div class="accordion-item" style="border: 1px solid var(--border);">
+              <div class="accordion-header" onclick="this.parentElement.classList.toggle('open');" style="font-size: 0.9rem; padding: 0.75rem 1rem;">
+                <span>❌ Erro 3: Nomes de variáveis ruins ou confusos</span>
+                <span style="font-size: 0.8rem; color: var(--text-dim);">Clique para expandir</span>
+              </div>
+              <div class="accordion-body" style="max-height: 500px; padding: 0 1rem 1rem; color: var(--text-muted); font-size: 0.85rem;">
+                <p style="color: #ef4444; margin-top: 0.5rem;"><strong>Ruim:</strong> <code>a = "Gabriel"</code> ou <code>x1 = 30</code></p>
+                <p style="color: var(--green);"><strong>Excelente:</strong> <code>nome_cliente = "Gabriel"</code> ou <code>idade_aluno = 30</code></p>
+                <p><strong>Dica de ouro:</strong> Use nomes autoexplicativos em minúsculas separados por underline (padrão snake_case no Python) para que qualquer pessoa consiga entender seu código de primeira.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-demo" data-demo="py-variables-playground"></div>
+
+          <h2><strong>8. Resumo</strong></h2>
+          <div class="tip-box">
+            <ul>
+              <li><strong>Variável</strong> = nome que aponta para um valor na memória.</li>
+              <li><strong>Tipo</strong> = categoria do valor (<code>int</code>, <code>float</code>, <code>str</code>, <code>bool</code>, <code>NoneType</code>).</li>
+              <li>Python infere o tipo automaticamente — sem necessidade de declarar.</li>
+              <li>Use <code>type()</code> para inspecionar o tipo de qualquer valor.</li>
+              <li>Use nomes descritivos em <code>snake_case</code>: <code>nome_cliente</code>, <code>total_vendas</code>.</li>
+              <li>Variáveis em Python são referências a objetos — atribuir não copia o valor, aponta para ele.</li>
+            </ul>
+          </div>`
+
         },
         {
           title: 'Estruturas de Controle',
